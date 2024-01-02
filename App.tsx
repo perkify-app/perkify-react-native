@@ -1,33 +1,26 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { GluestackUIProvider } from "@gluestack-ui/themed";
+import { SafeAreaView } from "react-native";
 
-import { Button, ButtonSpinner, ButtonText } from "@gluestack-ui/themed"
-
-let count: number = 0
+import {
+	GluestackUIProvider,
+	Box,
+	Heading,
+	Text,
+	Link,
+	LinkText,
+	Button,
+	ButtonGroup,
+	ButtonText,
+	View,
+} from "@gluestack-ui/themed";
 
 export default function App() {
 	return (
-		<GluestackUIProvider>
-			<View style={styles.container}>
-				<Button isDisabled={true} bg="$darkBlue600" p="$3">
-					<ButtonSpinner mr="$1" />
-					<ButtonText fontWeight="$medium" fontSize="$sm">
-						Please wait...
-					</ButtonText>
-				</Button><Button />
-				<Text>Open up App.tsx to start working on your app! fsdfsdfsgfdfdgfdggfddfsdf</Text>
-				<StatusBar style="auto" />
-			</View>
-		</GluestackUIProvider>
+		<SafeAreaView>
+			<GluestackUIProvider>
+				<Button backgroundColor="purple" padding={20}>
+					<ButtonText color="white">Hello world</ButtonText>
+				</Button>
+			</GluestackUIProvider>
+		</SafeAreaView>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
-});
