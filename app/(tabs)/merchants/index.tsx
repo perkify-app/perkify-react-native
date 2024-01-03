@@ -10,7 +10,8 @@ import QRCode from "react-native-qrcode-svg";
 import { Merchants } from "../../../constants/mock-data/Merchants";
 import { Users } from "../../../constants/mock-data/Users";
 
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
+
 
 export default function MerchantListScreen() {
   return (
