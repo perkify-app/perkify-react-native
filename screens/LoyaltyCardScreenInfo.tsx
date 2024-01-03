@@ -6,7 +6,7 @@ import { Merchants } from "../constants/mock-data/Merchants";
 console.log(Merchants);
 
 export default function LoyaltyCardScreenInfo() {
-    const card = LoyaltyCards[1]; // mocked data for now
+    const card = LoyaltyCards[2]; // mocked data for now
     const merchant = Merchants.find(m => m.merchant_id === card.loyalty_program_id);
     const merchantName = merchant ? merchant.company_name : 'Unknown Merchant';
   
