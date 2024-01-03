@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "perkify-app",
-    "slug": "perkify-app",
+    "name": "perkify-react-native",
+    "slug": "perkify-react-native",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
