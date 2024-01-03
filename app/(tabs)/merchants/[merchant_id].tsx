@@ -1,6 +1,13 @@
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import { Merchants, Merchant } from "../../../constants/mock-data/Merchants";
 import { Link, useLocalSearchParams } from "expo-router";
+
 import MapView from "react-native-maps";
 
 const singleMerchant = () => {
@@ -22,8 +29,13 @@ const singleMerchant = () => {
       </Text>
       <Text style={styles.title}>{correctMerchant.company_name}</Text>
       <View style={styles.mapPlaceholder}>
-        <Text>Map placeholder</Text>
+        <Text>Map/Image placeholder</Text>
       </View>
+      <Text style={styles.description}>{correctMerchant.description}</Text>
+      <Text style={styles.description}>{correctMerchant.phone_number}</Text>
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.btnText}>View Loyalty Card</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -56,6 +68,29 @@ const styles = StyleSheet.create({
     height: 300,
     backgroundColor: "#DDDDDD",
     marginTop: 20,
+    marginBottom: 20,
+  },
+  back: {
+    marginLeft: 15,
+  },
+  description: {
+    textAlign: "center",
+    fontSize: 15,
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: "black",
+    padding: 10,
+    marginBottom: 10,
+    width: 300,
+    alignSelf: "center",
+    borderRadius: 7,
+  },
+  btnText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "white",
+    textAlign: "center",
   },
 });
 
