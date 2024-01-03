@@ -1,8 +1,8 @@
-import { Link } from "expo-router";
+import { router } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 
-import {Users} from "../constants/mock-data/Users"
+import { Users } from "../constants/mock-data/Users";
 
 export default function AccountScreenInfo() {
 	return (
@@ -17,7 +17,11 @@ export default function AccountScreenInfo() {
 					<Text style={styles.account_info}>{Users[0].email}</Text>
 				</View>
 				<View style={styles.qrCode}>
-					<QRCode value={String(Users[0].id)} size={200} backgroundColor="transparent" />
+					<QRCode
+						value={String(Users[0].id)}
+						size={200}
+						backgroundColor="transparent"
+					/>
 				</View>
 				<View style={styles.seperator}>
 					<Text style={styles.sub_heading}>User ID</Text>
@@ -25,14 +29,18 @@ export default function AccountScreenInfo() {
 				</View>
 			</View>
 			<View>
-				<TouchableOpacity style={styles.btn}>
+				<TouchableOpacity
+					style={styles.btn}
+					onPress={() => router.replace("/")}
+				>
 					<Text style={styles.btn_text}>Sign Out</Text>
 				</TouchableOpacity>
-				<Link href="/(tabs)/account/confirm-delete">
-					<TouchableOpacity style={{ ...styles.btn, ...styles.delete_btn }}>
-						<Text style={styles.btn_text}>Delete My Account</Text>
-					</TouchableOpacity>
-				</Link>
+				<TouchableOpacity
+					style={{ ...styles.btn, ...styles.delete_btn }}
+					onPress={() => router.push("/delete-account")}
+				>
+					<Text style={styles.btn_text}>Delete My Account</Text>
+				</TouchableOpacity>
 			</View>
 		</View>
 	);
