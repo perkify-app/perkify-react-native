@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 
-import ExampleScreenInfo from "../../../screens/ExampleScreenInfo";
+
 
 export default function MerchantListScreen() {
   return (
