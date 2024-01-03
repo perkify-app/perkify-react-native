@@ -37,10 +37,7 @@ const styles = StyleSheet.create({
     textAlign: "right",
     marginRight: 15,
   },
-  back: {
-    marginLeft: 15,
-    marginBottom: 20,
-  },
+
   title: {
     marginTop: 40,
     fontSize: 20,
