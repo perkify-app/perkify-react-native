@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 
-import LoginScreenInfo from "../components/LoginScreenInfo";
+import LoginScreenInfo from "../screens/LoginScreenInfo";
 
 export default function LoginScreen() {
 	return (

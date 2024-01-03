@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import ExampleScreenInfo from '../../../components/ExampleScreenInfo';
+import AccountScreenInfo from '../../../screens/AccountScreenInfo';
 
 export default function AccountScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>My Account</Text>
       <View style={styles.separator} />
-      <ExampleScreenInfo />
+      <AccountScreenInfo />
     </View>
   );
 }
@@ -19,11 +19,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: 25,
     height: 1,
     width: '80%',
   },

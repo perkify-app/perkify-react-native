@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 
-import ExampleScreenInfo from "../../../components/ExampleScreenInfo";
+import ExampleScreenInfo from "../../../screens/ExampleScreenInfo";
 
 export default function MerchantListScreen() {
 	return (
