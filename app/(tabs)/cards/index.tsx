@@ -1,13 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
+import LoyaltyCardScreenInfo from "../../../screens/LoyaltyCardScreenInfo";
 
-import ExampleScreenInfo from "../../../screens/ExampleScreenInfo";
+
 
 export default function LoyaltyCardListScreen() {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Loyalty Cards</Text>
 			<View style={styles.separator} />
-			<ExampleScreenInfo />
+			<LoyaltyCardScreenInfo />
 		</View>
 	);
 }
