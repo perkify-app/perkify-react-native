@@ -25,7 +25,7 @@ const StampCard = ({ stamps }) => {
 
   return (
     <View style={styles.cardContainer}>
-      <Text style={styles.title}> Stamp Card</Text>
+      <Text style={styles.title}>Ipsem</Text>
       <View style={styles.stampContainer}>{renderStamps()}</View>
     </View>
   );
