@@ -6,9 +6,9 @@ export default function LoyaltyCardScreenInfo() {
   console.log('Card:', card);
   return (
     <View style={styles.exampleContainer}>
-      <Text style={styles.exampleText}>Loyalty Program ID: {card.loyalty_program_id}</Text>
-      <Text style={styles.exampleText}>Points: {card.points}</Text>
-      <Text style={styles.exampleText}>Created At: {card.created_at}</Text>
+      {/* <Text style={styles.exampleText}>Loyalty Program ID: {card.loyalty_program_id}</Text> */}
+      <Text style={styles.exampleText}>  You've got {card.points} stamp{card.points === 1 ? '' : 's'}!</Text>
+      {/* <Text style={styles.exampleText}>Created At: {card.created_at}</Text> */}
     </View>
   );
 }
