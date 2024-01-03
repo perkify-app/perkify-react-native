@@ -1,11 +1,15 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import QRCode from "react-native-qrcode-svg";
-
-
 
 export default function MerchantListScreen() {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.contentContainer}>
       <QRCode value="https://www.google.com" />
       <Text style={styles.title}>View Merchants with promotions</Text>
       <TouchableOpacity style={styles.button}>
@@ -21,12 +25,12 @@ export default function MerchantListScreen() {
         <Text style={styles.buttonText}>Merchant 4</Text>
       </TouchableOpacity>
       <View style={styles.separator} />
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  contentContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
