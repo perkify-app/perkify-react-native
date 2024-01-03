@@ -7,23 +7,18 @@ import {
 } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 
+import { Merchants } from "../../../constants/mock-data/Merchants";
+
 export default function MerchantListScreen() {
   return (
-    <ScrollView style={styles.contentContainer}>
-      <QRCode value="https://www.google.com" />
+    <ScrollView contentContainerStyle={styles.contentContainer}>
+      <QRCode size={200} value="https://www.google.com" />
       <Text style={styles.title}>View Merchants with promotions</Text>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Merchant 1</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Merchant 2</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Merchant 3</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Merchant 4</Text>
-      </TouchableOpacity>
+      {Merchants.map((merchant) => (
+        <TouchableOpacity style={styles.button} key={merchant.merchant_id}>
+          <Text style={styles.buttonText}>{merchant.company_name}</Text>
+        </TouchableOpacity>
+      ))}
       <View style={styles.separator} />
     </ScrollView>
   );
@@ -31,7 +26,6 @@ export default function MerchantListScreen() {
 
 const styles = StyleSheet.create({
   contentContainer: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 50,
@@ -47,12 +41,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginBottom: 10,
-    paddingLeft: 100,
-    paddingRight: 100,
+    width: 300,
   },
   buttonText: {
     fontSize: 16,
     color: "#000000",
+    textAlign: "center",
   },
   separator: {
     marginVertical: 30,
