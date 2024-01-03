@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
-
 import LoyaltyCardScreenInfo from "../../../screens/LoyaltyCardScreenInfo";
+
+
 
 export default function LoyaltyCardListScreen() {
 	return (
