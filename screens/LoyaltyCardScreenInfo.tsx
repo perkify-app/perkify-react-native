@@ -3,7 +3,6 @@ import { LoyaltyCards } from "../constants/mock-data/LoyaltyCards";
 
 export default function LoyaltyCardScreenInfo() {
   const card = LoyaltyCards[0]; // mocked data for now
-  console.log('Card:', card);
   return (
     <View style={styles.exampleContainer}>
       {/* <Text style={styles.exampleText}>Loyalty Program ID: {card.loyalty_program_id}</Text> */}
