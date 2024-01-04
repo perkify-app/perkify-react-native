@@ -10,6 +10,9 @@ import QRCode from "react-native-qrcode-svg";
 import { Merchants } from "../../../constants/mock-data/Merchants";
 import { Users } from "../../../constants/mock-data/Users";
 
+import { router } from "expo-router";
+
+
 export default function MerchantListScreen() {
   return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -20,7 +23,11 @@ export default function MerchantListScreen() {
       </View>
       <Text style={styles.title}>View Merchants with promotions</Text>
       {Merchants.map((merchant) => (
-        <TouchableOpacity style={styles.button} key={merchant.merchant_id}>
+        <TouchableOpacity
+          style={styles.button}
+          key={merchant.merchant_id}
+          onPress={() => router.push(`/merchants/${merchant.merchant_id}`)}
+        >
           <Text style={styles.buttonText}>{merchant.company_name}</Text>
         </TouchableOpacity>
       ))}
