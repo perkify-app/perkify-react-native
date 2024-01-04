@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Checkbox from "expo-checkbox";
 import { router } from "expo-router";
+import { InputField } from "./InputField";
 
 export default function CreateAccountForm() {
 	const [name, setName] = useState("");
@@ -17,6 +18,7 @@ export default function CreateAccountForm() {
 	const [isChecked, setChecked] = useState(false);
 	const [isValidated, setValidated] = useState(false);
 
+	// FORM VALIDATION
 	// if form is validated, setValidated(true) and allow form to be submitted
 	useEffect(() => {
 		if (
@@ -26,41 +28,29 @@ export default function CreateAccountForm() {
 			confirmPass &&
 			isChecked &&
 			pass === confirmPass
-        ) {
-			setValidated(true);   
-        } else {
-            setValidated(false)
-        }
+		) {
+			setValidated(true);
+		} else {
+			setValidated(false);
+		}
 	}, [name, email, pass, confirmPass, isChecked]);
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.inputContainer}>
-				<Text style={styles.inputHeading}>Email</Text>
-				<TextInput value={email} onChangeText={setEmail} style={styles.input} />
-			</View>
-			<View style={styles.inputContainer}>
-				<Text style={styles.inputHeading}>Full Name</Text>
-				<TextInput value={name} onChangeText={setName} style={styles.input} />
-			</View>
-			<View style={styles.inputContainer}>
-				<Text style={styles.inputHeading}>Password</Text>
-				<TextInput
-					value={pass}
-					onChangeText={setPass}
-					style={styles.input}
-					secureTextEntry={true}
-				/>
-			</View>
-			<View style={styles.inputContainer}>
-				<Text style={styles.inputHeading}>Confirm Password</Text>
-				<TextInput
-					value={confirmPass}
-					onChangeText={setConfirmPass}
-					style={styles.input}
-					secureTextEntry={true}
-				/>
-			</View>
+			<InputField header="Email" state={email} onChange={setEmail} />
+			<InputField header="Full Name" state={name} onChange={setName} />
+			<InputField
+				header="Password"
+				state={pass}
+				onChange={setPass}
+				hide={true}
+			/>
+			<InputField
+				header="Confirm Password"
+				state={confirmPass}
+				onChange={setConfirmPass}
+				hide={true}
+			/>
 			<View style={styles.termsContainer}>
 				<Checkbox
 					style={styles.checkbox}
@@ -74,7 +64,7 @@ export default function CreateAccountForm() {
 					...styles.btn,
 					backgroundColor: isValidated ? "black" : "lightgray",
 				}}
-				disabled={!isChecked}
+				disabled={!isValidated}
 				onPress={() => router.replace("/customer-welcome")}
 			>
 				<Text style={styles.btnText}>Sign Up</Text>
