@@ -1,31 +1,38 @@
-import { StyleSheet, Text, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import LoyaltyCardScreenInfo from "../../../screens/LoyaltyCardScreenInfo";
-
-
+import { LoyaltyPrograms } from "../../../constants/mock-data/LoyaltyPrograms";
 
 export default function LoyaltyCardListScreen() {
-	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>Loyalty Cards</Text>
-			<View style={styles.separator} />
-			<LoyaltyCardScreenInfo />
-		</View>
-	);
+  return (
+    <ScrollView contentContainerStyle={styles.contentContainer}>
+      <Text style={styles.title}> My Loyalty Cards</Text>
+      <View style={styles.separator} />
+      <TouchableOpacity>
+        <Text>Loyalty Card 1</Text>
+      </TouchableOpacity>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	title: {
-		fontSize: 20,
-		fontWeight: "bold",
-	},
-	separator: {
-		marginVertical: 30,
-		height: 1,
-		width: "80%",
-	},
+  contentContainer: {
+    flex: 1,
+    alignItems: "center",
+    marginTop: 50,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: "80%",
+  },
 });
