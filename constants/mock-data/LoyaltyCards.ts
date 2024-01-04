@@ -24,4 +24,23 @@ export const LoyaltyCards: LoyaltyCard[] = [
     points: 10,
     created_at: "2021-03-01T00:00:00.000Z",
   },
+
+  {
+    loyalty_program_id: 4,
+    user_id: 46524,
+    points: 3,
+    created_at: "2021-04-01T00:00:00.000Z",
+  },
+  {
+    loyalty_program_id: 5,
+    user_id: 46525,
+    points: 6,
+    created_at: "2021-05-01T00:00:00.000Z",
+  },
+  {
+    loyalty_program_id: 6,
+    user_id: 46526,
+    points: 5,
+    created_at: "2021-06-01T00:00:00.000Z",
+  },
 ];
