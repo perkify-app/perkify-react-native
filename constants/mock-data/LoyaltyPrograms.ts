@@ -1,4 +1,4 @@
-interface LoyaltyProgram {
+export interface LoyaltyProgram {
   id: number;
   merchant_id: number;
   name: string;

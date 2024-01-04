@@ -1,13 +1,20 @@
 import { StyleSheet, Text, View } from "react-native";
-import { LoyaltyCards } from "../constants/mock-data/LoyaltyCards";
-import StampCard from "./components/StampCard";
-import { Merchants } from "../constants/mock-data/Merchants";
+import { LoyaltyCards } from "../../../constants/mock-data/LoyaltyCards";
+import StampCard from "../../../screens/components/StampCard";
+import { Merchants } from "../../../constants/mock-data/Merchants";
 import QRCode from "react-native-qrcode-svg";
+import { useLocalSearchParams } from "expo-router";
 
 console.log(Merchants);
 
 export default function LoyaltyCardScreenInfo() {
-  const card = LoyaltyCards[2]; // mocked data for now
+  // const card = LoyaltyCards[0]; // mocked data for now
+  const id = useLocalSearchParams();
+  const filteredCard = LoyaltyCards.filter((card) => {
+    return card.loyalty_program_id === Number(id.loyalty_program_id);
+  });
+  const card = filteredCard[0];
+
   const merchant = Merchants.find(
     (m) => m.merchant_id === card.loyalty_program_id
   );

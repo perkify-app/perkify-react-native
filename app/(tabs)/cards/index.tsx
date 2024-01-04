@@ -5,20 +5,24 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import LoyaltyCardScreenInfo from "../../../screens/LoyaltyCardScreenInfo";
 import { LoyaltyPrograms } from "../../../constants/mock-data/LoyaltyPrograms";
 import { LoyaltyCards } from "../../../constants/mock-data/LoyaltyCards";
+import { router, Link } from "expo-router";
 
 export default function LoyaltyCardListScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>My Loyalty Cards</Text>
       <View style={styles.separator} />
-      {LoyaltyPrograms.map((loyaltyprogram) => (
-        <TouchableOpacity style={styles.button}>
+      {LoyaltyPrograms.map((loyaltyProgram) => (
+        <TouchableOpacity
+          style={styles.button}
+          key={loyaltyProgram.id}
+          onPress={() => router.push(`/cards/${loyaltyProgram.id}`)}
+        >
           <View style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>{loyaltyprogram.name}</Text>
-            <Text style={styles.buttonText}>0/{loyaltyprogram.points}</Text>
+            <Text style={styles.buttonText}>{loyaltyProgram.name}</Text>
+            <Text style={styles.buttonText}>0/{loyaltyProgram.points}</Text>
           </View>
         </TouchableOpacity>
       ))}
