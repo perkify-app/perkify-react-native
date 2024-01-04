@@ -6,7 +6,7 @@ import WelcomeScreenInfo from '../../screens/WelcomeScreenInfo';
 export default function CustomerWelcomeModal() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>WELCOME</Text>
+      <Text style={styles.title}>Welcome to your Treasure Trove of Treats!</Text>
       <View style={styles.separator} />
       <WelcomeScreenInfo />
 
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
   },
   separator: {

@@ -1,40 +1,27 @@
 import { router } from "expo-router";
 import {
-	FlatList,
 	StyleSheet,
 	Text,
 	TouchableOpacity,
 	View,
 } from "react-native";
 
-const DATA = [
-	{
-		id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-		title: "First Item",
-	},
-	{
-		id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-		title: "Second Item",
-	},
-	{
-		id: "58694a0f-3da1-471f-bd96-145571e29d72",
-		title: "Third Item",
-	},
-];
+import { CustomerOnboarding } from "../constants/OnboardingData";
 
-const Item = ({ item, backgroundColor, textColor }) => (
-	<TouchableOpacity style={[styles.item, { backgroundColor }]}>
-		<Text style={[styles.title, { color: textColor }]}>{item.title}</Text>
-	</TouchableOpacity>
+const Item = ({ item, index }) => (
+	<View style={styles.item}>
+		<Text style={styles.title}>{index + 1}. {item.title}</Text>
+		<Text style={styles.description}>{item.description}</Text>
+	</View>
 );
 
 export default function WelcomeScreenInfo() {
 	return (
 		<View>
-			<View style={styles.exampleContainer}>
-				{DATA.map((item) => {
+			<View style={styles.container}>
+				{CustomerOnboarding.map((item, index) => {
 					return (
-						<Item item={item} backgroundColor="lightgray" textColor="black" />
+						<Item key={item.id} item={item} index={index} />
 					);
 				})}
 				<TouchableOpacity
@@ -49,14 +36,9 @@ export default function WelcomeScreenInfo() {
 }
 
 const styles = StyleSheet.create({
-	exampleContainer: {
+	container: {
 		alignItems: "center",
 		marginHorizontal: 50,
-	},
-	exampleText: {
-		fontSize: 17,
-		lineHeight: 24,
-		textAlign: "center",
 	},
 	btn: {
 		backgroundColor: "black",
@@ -68,11 +50,19 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 40,
 	},
 	item: {
-		padding: 20,
+		backgroundColor: "#E0E0E0",
+		flex: 1,
+		width: "100%",
+		padding: 25,
 		marginVertical: 8,
 		marginHorizontal: 16,
 	},
 	title: {
-		fontSize: 32,
+		fontSize: 24,
+		fontWeight: "600",
 	},
+	description: {
+		fontSize: 16,
+		marginTop: 10,
+	}
 });
