@@ -8,8 +8,6 @@ import {
 import { Merchants, Merchant } from "../../../constants/mock-data/Merchants";
 import { Link, useLocalSearchParams } from "expo-router";
 
-import MapView from "react-native-maps";
-
 const singleMerchant = () => {
   const id = useLocalSearchParams();
 
@@ -55,10 +53,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginLeft: 15,
-  },
-  map: {
-    width: "50%",
-    height: "50%",
   },
   mapPlaceholder: {
     alignSelf: "center",
