@@ -5,16 +5,23 @@ export default function LoginScreenInfo() {
 	return (
 		<View>
 			<View style={styles.loginContainer}>
-				<Text style={styles.loginText}>Use Supabase Auth React Native components here.
-					All other screens and main-nav should not be accessible unless user
-					isAuthenticated. If user is already logged in, should redirect to merchants/overview screen
+				<Text style={styles.loginText}>
+					Use Supabase Auth React Native components here. All other screens and
+					main-nav should not be accessible unless user isAuthenticated. If user
+					is already logged in, should redirect to merchants/overview screen
 				</Text>
-				<TouchableOpacity style={styles.btn} onPress={() => { router.replace("/(tabs)/merchants") }}>
+				<TouchableOpacity
+					style={styles.btn}
+					onPress={() => router.replace("/(tabs)/merchants")}
+				>
 					<Text style={styles.btnText}>Login</Text>
-					</TouchableOpacity>
-				<TouchableOpacity style={{ ...styles.btn, ...styles.registerBtn }}>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={{ ...styles.btn, ...styles.registerBtn }}
+					onPress={() => router.push("/create-account")}
+				>
 					<Text style={styles.btnText}>Create an Account</Text>
-					</TouchableOpacity>
+				</TouchableOpacity>
 			</View>
 		</View>
 	);
@@ -39,9 +46,9 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 	},
 	btnText: {
-		color: "white"
+		color: "white",
 	},
 	registerBtn: {
-		backgroundColor: "gray"
-	}
+		backgroundColor: "gray",
+	},
 });
