@@ -7,13 +7,21 @@ import {
 } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 
-import { Merchants } from "../../../constants/mock-data/Merchants";
+import { useEffect, useState } from "react";
+// import { Merchants } from "../../../constants/mock-data/Merchants";
 import { Users } from "../../../constants/mock-data/Users";
+import getAllMerchants from "../../utils/getMerchants";
 
 import { router } from "expo-router";
 
-
 export default function MerchantListScreen() {
+  const [merchants, setMerchants] = useState([]);
+  useEffect(() => {
+    getAllMerchants().then((data) => {
+      setMerchants(data);
+      console.log(merchants);
+    });
+  }, []);
   return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
       <QRCode size={200} value="https://www.google.com" />
@@ -22,7 +30,7 @@ export default function MerchantListScreen() {
         <Text style={styles.account_userId}>{Users[0].id}</Text>
       </View>
       <Text style={styles.title}>View Merchants with promotions</Text>
-      {Merchants.map((merchant) => (
+      {merchants.map((merchant) => (
         <TouchableOpacity
           style={styles.button}
           key={merchant.merchant_id}

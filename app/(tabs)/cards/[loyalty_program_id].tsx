@@ -5,8 +5,6 @@ import { Merchants } from "../../../constants/mock-data/Merchants";
 import QRCode from "react-native-qrcode-svg";
 import { useLocalSearchParams, Link } from "expo-router";
 
-console.log(Merchants);
-
 export default function LoyaltyCardScreenInfo() {
   // const card = LoyaltyCards[0]; // mocked data for now
   const id = useLocalSearchParams();
