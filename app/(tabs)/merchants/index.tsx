@@ -4,6 +4,7 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 
@@ -16,12 +17,19 @@ import { router } from "expo-router";
 
 export default function MerchantListScreen() {
   const [merchants, setMerchants] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     getAllMerchants().then((data) => {
       setMerchants(data);
-      console.log(merchants);
+      setLoading(false);
     });
   }, []);
+  if (loading)
+    return (
+      <View>
+        <ActivityIndicator size="large" color="#0000ff" />;
+      </View>
+    );
   return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
       <QRCode size={200} value="https://www.google.com" />
@@ -45,6 +53,16 @@ export default function MerchantListScreen() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10,
+  },
   contentContainer: {
     alignItems: "center",
     justifyContent: "center",
