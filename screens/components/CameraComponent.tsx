@@ -34,9 +34,7 @@ export default function CameraComponent() {
     );
   }
 
-  function toggleCameraType() {
-    setType((current) => (current === CameraType.back ? CameraType.front : CameraType.back));
-  }
+
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
