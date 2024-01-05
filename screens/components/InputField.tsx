@@ -1,21 +1,31 @@
-import React from 'react';
-import { Text, View, TextInput, StyleSheet } from 'react-native'
+import React from "react";
+import { Text, View, TextInput, StyleSheet } from "react-native";
 
 interface InputProps {
 	header: string;
-    state: string;
-	onChange(stateHandler): void; 
+	state: string;
+	onChange(stateHandler): void;
 	hide?: boolean;
 }
 
-export const InputField: React.FC<InputProps> = ({header, state, onChange, hide = false}: InputProps) => {
-    return (
-			<View style={styles.inputContainer}>
+export const InputField: React.FC<InputProps> = ({
+	header,
+	state,
+	onChange,
+	hide = false,
+}: InputProps) => {
+	return (
+		<View style={styles.inputContainer}>
 			<Text style={styles.inputHeading}>{header}</Text>
-				<TextInput value={state} onChangeText={onChange} style={styles.input} secureTextEntry={hide} />
-			</View>
-    )
-}
+			<TextInput
+				value={state}
+				onChangeText={onChange}
+				style={styles.input}
+				secureTextEntry={hide}
+			/>
+		</View>
+	);
+};
 
 const styles = StyleSheet.create({
 	inputContainer: {
