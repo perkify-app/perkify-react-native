@@ -40,36 +40,39 @@ export default function CameraComponent() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    console.log(`Bar code with type ${type} and data ${data} has been scanned!`);
-  };
+    console.log(`Bar code with type ${type} and data ${data} has been scanned!`); // replace this with state?
+    setTimeout(() => {
+        setScanned(false); // wouldn't scan after the first scan without this
+      }, 5000);
+};
 
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={type} ratio="16:9">
-        <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={StyleSheet.absoluteFillObject}
-        />
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
-        </View>
-      </Camera>
+      <BarCodeScanner
+        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+        style={StyleSheet.absoluteFillObject}
+      />
+      <View style={styles.buttonContainer}>
+        {/* <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
+          <Text style={styles.text}>Flip Camera</Text>
+        </TouchableOpacity> */}
+      </View>
     </View>
-  );
+  ); 
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    height: "100%",
+    width: "100%"
   },
   camera: {
     flex: 1,
+
   },
   buttonContainer: {
-    flex: 1,
+ 
     flexDirection: 'row',
     backgroundColor: 'transparent',
     margin: 64,
