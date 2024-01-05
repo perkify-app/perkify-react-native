@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { router } from "expo-router";
 
 import { InputField } from "./components/InputField";
+import { Button } from "./components/Button";
 
 // Use Supabase Auth React Native components here. All other screens and
 // main-nav should not be accessible unless user isAuthenticated. If user
@@ -23,18 +24,15 @@ export default function LoginScreenInfo() {
 				hide={true}
 			/>
 			<View style={styles.btnContainer}>
-				<TouchableOpacity
-					style={styles.btn}
+				<Button
+					title="Login"
 					onPress={() => router.replace("/(tabs)/merchants")}
-				>
-					<Text style={styles.btnText}>Login</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={{ ...styles.btn, ...styles.registerBtn }}
+				/>
+				<Button
+					title="Create Account"
 					onPress={() => router.push("/create-account")}
-				>
-					<Text style={styles.btnText}>Create an Account</Text>
-				</TouchableOpacity>
+					style={{ backgroundColor: "gray" }}
+				/>
 			</View>
 		</View>
 	);
@@ -61,20 +59,5 @@ const styles = StyleSheet.create({
 	},
 	btnContainer: {
 		marginTop: 10,
-	},
-	btn: {
-		backgroundColor: "black",
-		paddingVertical: 20,
-		paddingHorizontal: 35,
-		marginVertical: 10,
-		borderRadius: 10,
-		minWidth: 200,
-	},
-	btnText: {
-		color: "white",
-		textAlign: "center",
-	},
-	registerBtn: {
-		backgroundColor: "gray",
 	},
 });
