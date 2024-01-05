@@ -6,7 +6,9 @@ import LoginScreenInfo from "../screens/LoginScreenInfo";
 export default function LoginScreen() {
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Example Login Screen</Text>
+			<View>
+				<Text style={styles.logo}>Perkify</Text>
+			</View>
 			<LoginScreenInfo />
 		</View>
 	);
@@ -18,8 +20,9 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	title: {
-		fontSize: 20,
-		fontWeight: "bold",
+	logo: {
+		fontSize: 42,
+		fontWeight: "700",
+		marginBottom: 75,
 	},
 });
