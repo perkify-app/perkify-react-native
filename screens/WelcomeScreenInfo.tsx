@@ -1,7 +1,8 @@
 import { router } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import { CustomerOnboarding } from "../constants/OnboardingData";
+import { Button } from "./components/Button";
 
 const Item = ({ item, index }) => (
 	<View style={styles.item}>
@@ -24,12 +25,10 @@ export default function WelcomeScreenInfo() {
 				{CustomerOnboarding.map((item, index) => {
 					return <Item key={item.id} item={item} index={index} />;
 				})}
-				<TouchableOpacity
-					style={styles.btn}
+				<Button
+					title="Get Started"
 					onPress={() => router.replace("/merchants/")}
-				>
-					<Text style={styles.btnText}>Get Started</Text>
-				</TouchableOpacity>
+				/>
 			</View>
 		</View>
 	);
@@ -39,15 +38,6 @@ const styles = StyleSheet.create({
 	container: {
 		alignItems: "center",
 		marginHorizontal: 50,
-	},
-	btn: {
-		backgroundColor: "black",
-		marginTop: 20,
-	},
-	btnText: {
-		color: "white",
-		paddingVertical: 20,
-		paddingHorizontal: 40,
 	},
 	item: {
 		backgroundColor: "#E0E0E0",

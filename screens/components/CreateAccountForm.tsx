@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Checkbox from "expo-checkbox";
 import { router } from "expo-router";
 
 import { InputField } from "./InputField";
+import { Button } from "./Button";
 
 export default function CreateAccountForm() {
 	const [name, setName] = useState("Billy Bob");
@@ -55,16 +56,11 @@ export default function CreateAccountForm() {
 				/>
 				<Text>Accept terms and conditions</Text>
 			</View>
-			<TouchableOpacity
-				style={{
-					...styles.btn,
-					backgroundColor: isValidated ? "black" : "lightgray",
+			<Button title="Sign Up" style={{
+					backgroundColor: isValidated ? "black" : "lightgray", marginTop: 20,
 				}}
 				disabled={!isValidated}
-				onPress={() => router.replace("/customer-welcome")}
-			>
-				<Text style={styles.btnText}>Sign Up</Text>
-			</TouchableOpacity>
+				onPress={() => router.replace("/customer-welcome")} />
 		</View>
 	);
 }
@@ -81,14 +77,6 @@ const styles = StyleSheet.create({
 		fontSize: 24,
 		fontWeight: "bold",
 		marginBottom: 24,
-	},
-	btn: {
-		paddingVertical: 20,
-		paddingHorizontal: 40,
-		marginTop: 30,
-	},
-	btnText: {
-		color: "white",
 	},
 	checkbox: {
 		margin: 8,
