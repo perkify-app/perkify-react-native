@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Merchants, Merchant } from "../../../constants/mock-data/Merchants";
-import { Link, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams, router } from "expo-router";
 
 const singleMerchant = () => {
   const id = useLocalSearchParams();
@@ -31,7 +31,12 @@ const singleMerchant = () => {
       </View>
       <Text style={styles.description}>{correctMerchant.description}</Text>
       <Text style={styles.description}>{correctMerchant.phone_number}</Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          router.push(`/(tabs)/cards/2`);
+        }}
+      >
         <Text style={styles.btnText}>View Loyalty Card</Text>
       </TouchableOpacity>
     </View>
