@@ -1,7 +1,16 @@
 import { StyleSheet, View } from "react-native";
+import CameraComponent from "../../../screens/components/CameraComponent";
 
-export default function LoyaltyCardListScreen() {
-  return <View></View>;
+export default function CameraScreen() {
+  return (
+    <View style={styles.container}>
+
+    <CameraComponent />
+
+  </View>
+  )
+
+
 }
 
 const styles = StyleSheet.create({
