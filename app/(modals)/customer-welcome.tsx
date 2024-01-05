@@ -6,7 +6,7 @@ import WelcomeScreenInfo from '../../screens/WelcomeScreenInfo';
 export default function CustomerWelcomeModal() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to your Treasure Trove of Treats!</Text>
+      <Text style={styles.title}>Welcome to your very own Treasure Trove!</Text>
       <View style={styles.separator} />
       <WelcomeScreenInfo />
 
