@@ -1,19 +1,19 @@
 import React from "react";
 import { Text, View, TextInput, StyleSheet } from "react-native";
 
-interface InputProps {
+interface Props {
 	header: string;
 	state: string;
 	onChange(stateHandler): void;
 	hide?: boolean;
 }
 
-export const InputField: React.FC<InputProps> = ({
+export const InputField: React.FC<Props> = ({
 	header,
 	state,
 	onChange,
 	hide = false,
-}: InputProps) => {
+}) => {
 	return (
 		<View style={styles.inputContainer}>
 			<Text style={styles.inputHeading}>{header}</Text>
