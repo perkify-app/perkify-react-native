@@ -1,33 +1,7 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
-import { LoyaltyPrograms } from "../../../constants/mock-data/LoyaltyPrograms";
-import { LoyaltyCards } from "../../../constants/mock-data/LoyaltyCards";
-import { router, Link } from "expo-router";
+import { StyleSheet, View } from "react-native";
 
 export default function LoyaltyCardListScreen() {
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>My Loyalty Cards</Text>
-      <View style={styles.separator} />
-      {LoyaltyPrograms.map((loyaltyProgram) => (
-        <TouchableOpacity
-          style={styles.button}
-          key={loyaltyProgram.id}
-          onPress={() => router.push(`/cards/${loyaltyProgram.id}`)}
-        >
-          <View style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>{loyaltyProgram.name}</Text>
-            <Text style={styles.buttonText}>0/{loyaltyProgram.points}</Text>
-          </View>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
-  );
+  return <View></View>;
 }
 
 const styles = StyleSheet.create({
