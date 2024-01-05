@@ -4,12 +4,30 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
+import { useEffect, useState } from "react";
 import { LoyaltyPrograms } from "../../../constants/mock-data/LoyaltyPrograms";
 import { LoyaltyCards } from "../../../constants/mock-data/LoyaltyCards";
 import { router, Link } from "expo-router";
+import getLoyaltyCards from "../../utils/getLoyaltyCards";
 
 export default function LoyaltyCardListScreen() {
+  const [LoyaltyCards, setLoyaltycards] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    getLoyaltyCards().then((data) => {
+      console.log(data);
+      setLoyaltycards(data);
+      setLoading(false);
+    });
+  }, []);
+  if (loading)
+    return (
+      <View>
+        <ActivityIndicator size="large" color="#0000ff" />;
+      </View>
+    );
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>My Loyalty Cards</Text>
@@ -22,7 +40,7 @@ export default function LoyaltyCardListScreen() {
         >
           <View style={styles.buttonContainer}>
             <Text style={styles.buttonText}>{loyaltyProgram.name}</Text>
-            <Text style={styles.buttonText}>0/{loyaltyProgram.points}</Text>
+            <Text style={styles.buttonText}>/{loyaltyProgram.points}</Text>
           </View>
         </TouchableOpacity>
       ))}
