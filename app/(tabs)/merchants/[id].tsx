@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Pressable,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { Link, useLocalSearchParams, router } from "expo-router";
 import { useEffect, useState } from "react";
@@ -32,6 +33,13 @@ const singleMerchant = () => {
       setLoading(false);
     });
   }, [merchantId]);
+
+  if (loading)
+    return (
+      <View>
+        <ActivityIndicator size="large" color="#0000ff" />;
+      </View>
+    );
 
   return (
     <View style={styles.container}>
