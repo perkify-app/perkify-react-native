@@ -6,7 +6,6 @@ import QRCode from "react-native-qrcode-svg";
 import { useLocalSearchParams, Link } from "expo-router";
 
 export default function LoyaltyCardScreenInfo() {
-  // const card = LoyaltyCards[0]; // mocked data for now
   const id = useLocalSearchParams();
   const filteredCard = LoyaltyCards.filter((card) => {
     return card.loyalty_program_id === Number(id.loyalty_program_id);

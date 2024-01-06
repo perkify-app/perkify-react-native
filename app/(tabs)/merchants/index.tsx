@@ -24,6 +24,7 @@ export default function MerchantListScreen() {
       setLoading(false);
     });
   }, []);
+
   if (loading)
     return (
       <View>
@@ -42,7 +43,7 @@ export default function MerchantListScreen() {
         <TouchableOpacity
           style={styles.button}
           key={merchant.merchant_id}
-          onPress={() => router.push(`/merchants/${merchant.merchant_id}`)}
+          onPress={() => router.push(`/merchants/${merchant.id}`)}
         >
           <Text style={styles.buttonText}>{merchant.company_name}</Text>
         </TouchableOpacity>

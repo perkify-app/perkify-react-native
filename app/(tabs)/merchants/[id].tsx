@@ -5,32 +5,46 @@ import {
   Pressable,
   TouchableOpacity,
 } from "react-native";
-import { Merchants, Merchant } from "../../../constants/mock-data/Merchants";
 import { Link, useLocalSearchParams, router } from "expo-router";
+import { useEffect, useState } from "react";
+import getMerchantById from "../../utils/getMerchantById";
+
+interface merchant {
+  merchant_id?: number;
+  company_name?: string;
+  logo_url?: string;
+  description?: string;
+  address?: string;
+  phone_no?: string;
+}
 
 const singleMerchant = () => {
+  const [merchant, setMerchant] = useState<merchant>({});
+  const [loading, setLoading] = useState(true);
   const id = useLocalSearchParams();
 
-  const filteredMerchant = Merchants.filter((merchant: Merchant) => {
-    return merchant.merchant_id === Number(id.merchant_id);
-  });
+  const merchantId = id.id;
 
-  const correctMerchant = filteredMerchant[0];
+  useEffect(() => {
+    getMerchantById(merchantId).then((data) => {
+      console.log(data);
+      setMerchant(data);
+      setLoading(false);
+    });
+  }, [merchantId]);
 
   return (
     <View style={styles.container}>
       <Pressable style={styles.back}>
         <Link href="/merchants">Back</Link>
       </Pressable>
-      <Text style={styles.logo}>
-        {correctMerchant.company_name} Logo placeholder
-      </Text>
-      <Text style={styles.title}>{correctMerchant.company_name}</Text>
+      <Text style={styles.logo}>{merchant.company_name} Logo placeholder</Text>
+      <Text style={styles.title}>{merchant.company_name}</Text>
       <View style={styles.mapPlaceholder}>
         <Text>Map/Image placeholder</Text>
       </View>
-      <Text style={styles.description}>{correctMerchant.description}</Text>
-      <Text style={styles.description}>{correctMerchant.phone_number}</Text>
+      <Text style={styles.description}>{merchant.description}</Text>
+      <Text style={styles.description}>{merchant.phone_no}</Text>
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
