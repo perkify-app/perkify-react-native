@@ -2,13 +2,12 @@ import {
 	Text,
 	View,
 	StyleSheet,
-	Pressable,
 	TouchableOpacity,
 	ActivityIndicator,
 	Platform,
 	Image,
 } from "react-native";
-import { Link, useLocalSearchParams, router } from "expo-router";
+import { useLocalSearchParams, router } from "expo-router";
 import { useEffect, useState } from "react";
 import getMerchantById from "../../utils/getMerchantById";
 import MapView, { Marker } from "react-native-maps";
@@ -46,10 +45,6 @@ const singleMerchant = () => {
 
 	return (
 		<View style={styles.container}>
-			<Pressable style={styles.back}>
-				<Link href="/merchants">Back</Link>
-			</Pressable>
-			<Text style={styles.logo}>{merchant.company_name} Logo placeholder</Text>
 			<Text style={styles.title}>{merchant.company_name}</Text>
 			<View style={styles.mapPlaceholder}>
 				{Platform.OS === "web" ? (

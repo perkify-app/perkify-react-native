@@ -30,7 +30,7 @@ export default function AccountScreenInfo() {
 				</View>
 			</View>
 			<Button title="Sign Out" onPress={() => router.replace("/")} />
-			<Button title="Delete My Account" onPress={() => router.replace("/delete-account")} style={{backgroundColor: "red"}} />
+			<Button title="Delete My Account" onPress={() => router.push("/delete-account")} style={{backgroundColor: "red"}} />
 		</View>
 	);
 }

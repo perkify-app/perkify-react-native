@@ -24,7 +24,7 @@ export default function DeleteAccountModal() {
 				/>
 				<Button
 					title="Cancel"
-					onPress={() => router.replace("/(tabs)/account")}
+					onPress={() => router.back()}
 				/>
 			</View>
 			

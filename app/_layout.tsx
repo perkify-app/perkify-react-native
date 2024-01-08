@@ -1,7 +1,9 @@
+import { Pressable, Platform } from "react-native";
 import { useEffect } from "react";
-import { SplashScreen, Stack } from "expo-router";
+import { router, SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { FAIcon } from "../screens/components/FAIcon";
 
 export {
 	// Catch any errors thrown by the Layout component.
@@ -18,7 +20,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
 	const [loaded, error] = useFonts({
-    Inter: require("../assets/fonts/Inter-Regular.ttf"),
+		Inter: require("../assets/fonts/Inter-Regular.ttf"),
 		...FontAwesome.font,
 	});
 
@@ -44,15 +46,60 @@ function RootLayoutNav() {
 	return (
 		<Stack>
 			<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-			<Stack.Screen name="(modals)/delete-account" options={{ presentation: "modal", title: "Confirm Account Deletion" }} />
-			<Stack.Screen name="(modals)/customer-welcome" options={{ presentation: "modal", title: "Welcome!", headerShown: false }} />
+			<Stack.Screen
+				name="(modals)/delete-account"
+				options={{
+					presentation: "modal",
+					title: "My Account",
+					headerLeft: () => (
+						<Pressable onPress={() => router.back()}>
+							<FAIcon
+								name="arrow-left"
+								color="darkgray"
+								size={20}
+								style={{
+									paddingLeft: 0,
+									paddingRight: 10,
+									margin: 0,
+								}}
+							/>
+						</Pressable>
+					),
+				}}
+			/>
+			<Stack.Screen
+				name="(modals)/customer-welcome"
+				options={{
+					presentation: "modal",
+					title: "Welcome!",
+					headerShown: false,
+				}}
+			/>
 			<Stack.Screen
 				name="index"
 				options={{ headerShown: false, navigationBarHidden: true }}
 			/>
 			<Stack.Screen
 				name="create-account"
-				options={{title: "Create Account", headerShown: true, navigationBarHidden: true }}
+				options={{
+					title: "Login",
+					headerShown: true,
+					navigationBarHidden: true,
+					headerLeft: () => (
+						<Pressable onPress={() => router.back()}>
+							<FAIcon
+								name="arrow-left"
+								color="darkgray"
+								size={20}
+								style={{
+									paddingLeft: 0,
+									paddingRight: 10,
+									margin: 0,
+								}}
+							/>
+						</Pressable>
+					),
+				}}
 			/>
 		</Stack>
 	);

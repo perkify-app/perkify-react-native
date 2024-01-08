@@ -1,12 +1,5 @@
 import { Tabs } from "expo-router";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+import { FAIcon } from "../../screens/components/FAIcon";
 
 export default function TabLayout() {
   return (
@@ -20,28 +13,28 @@ export default function TabLayout() {
         name="merchants"
         options={{
           title: "Merchants",
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          tabBarIcon: ({ color }) => <FAIcon name="home" color={color} />,
         }}
       />
       <Tabs.Screen
         name="cards"
         options={{
           title: "Loyalty Cards",
-          tabBarIcon: ({ color }) => <TabBarIcon name="dollar" color={color} />,
+          tabBarIcon: ({ color }) => <FAIcon name="dollar" color={color} />,
         }}
       />
       <Tabs.Screen
         name="account"
         options={{
           title: "Account",
-          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
+          tabBarIcon: ({ color }) => <FAIcon name="user" color={color} />,
         }}
       />
       <Tabs.Screen
         name="camera"
         options={{
           title: "Camera",
-          tabBarIcon: ({ color }) => <TabBarIcon name="camera" color={color} />,
+          tabBarIcon: ({ color }) => <FAIcon name="camera" color={color} />,
         }}
       />
     </Tabs>
