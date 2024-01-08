@@ -45,6 +45,11 @@ export default function MerchantListScreen() {
     filterMerchants(text);
   };
 
+  const handleClearInput = () => {
+    setInput("");
+    filterMerchants("");
+  };
+
   if (loading)
     return (
       <View>
@@ -152,5 +157,9 @@ const styles = StyleSheet.create({
     color: "black",
     border: "none",
     borderRadius: 10,
+  },
+  clearButtonText: {
+    color: "black",
+    fontSize: 12,
   },
 });
