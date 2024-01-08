@@ -66,7 +66,11 @@ export default function CameraComponent() {
 
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.modalContainer}>
-          <View style={styles.modalContent}></View>
+          <View style={styles.modalContent}>
+          <Text>I am placeholder text</Text>
+          </View>
+        
+
         </View>
       </Modal>
     </View>
