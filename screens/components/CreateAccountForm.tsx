@@ -14,8 +14,6 @@ export default function CreateAccountForm() {
 	const [isChecked, setChecked] = useState(false);
 	const [isValidated, setValidated] = useState(false);
 
-	// FORM VALIDATION
-	// if form is validated, setValidated(true) and allow form to be submitted
 	useEffect(() => {
 		if (
 			name &&

@@ -17,20 +17,20 @@ import { router } from "expo-router";
 export default function MerchantListScreen() {
   const [merchants, setMerchants] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     getAllMerchants().then((data) => {
       setMerchants(data);
       setLoading(false);
     });
   }, []);
-  console.log(merchants);
 
   if (loading)
     return (
       <View>
-        <ActivityIndicator size="large" color="#0000ff" />;
+        <ActivityIndicator size="large" color="#0000ff" />
       </View>
-    );
+    )
   return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
       <QRCode size={200} value="https://www.google.com" />

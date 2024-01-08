@@ -5,10 +5,6 @@ import { router } from "expo-router";
 import { InputField } from "./components/InputField";
 import { Button } from "./components/Button";
 
-// Use Supabase Auth React Native components here. All other screens and
-// main-nav should not be accessible unless user isAuthenticated. If user
-// is already logged in, should redirect to merchants/overview screen
-
 export default function LoginScreenInfo() {
 	const [email, setEmail] = useState("johndoe@gmail.com");
 	const [pass, setPass] = useState("password123");
