@@ -7,7 +7,7 @@ export default function CameraComponent() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [data, setdata] = useState(null);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -43,6 +43,7 @@ export default function CameraComponent() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
+    setData(data)
     console.log(
       `Bar code with type ${type} and data ${data} has been scanned!`
     ); // replace this with state?
@@ -67,7 +68,7 @@ export default function CameraComponent() {
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-          <Text>I am placeholder text</Text>
+          <Text>Customer ID: {data}</Text>
           </View>
         
 
