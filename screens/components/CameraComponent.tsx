@@ -1,11 +1,14 @@
 import { Camera } from "expo-camera";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useState, useEffect } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View, Modal, Alert } from "react-native";
+
 
 export default function CameraComponent() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [data, setdata] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -17,6 +20,7 @@ export default function CameraComponent() {
   useEffect(() => {
     if (scanned) {
       console.log("QR Code Scanned!");
+      
     }
   }, [scanned]);
 
