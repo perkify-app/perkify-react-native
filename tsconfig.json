@@ -8,6 +8,6 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "app/(tabs)/cards/[loyalty_program_id].tsx"
+    "app/(tabs)/cards/[id].tsx"
   ]
 }

@@ -1,4 +1,4 @@
-export interface Merchant {
+interface Merchant {
   merchant_id: number;
   company_name: string;
   logo_url: string;

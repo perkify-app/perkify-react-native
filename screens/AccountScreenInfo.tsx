@@ -1,20 +1,21 @@
 import { router } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 
 import { Users } from "../constants/mock-data/Users";
+import { Button } from "./components/Button";
 
 export default function AccountScreenInfo() {
 	return (
 		<View style={styles.container}>
 			<View>
 				<View style={styles.seperator}>
-					<Text style={styles.sub_heading}>Full Name</Text>
-					<Text style={styles.account_info}>{Users[0].name}</Text>
+					<Text style={styles.subHeading}>Full Name</Text>
+					<Text style={styles.accountInfo}>{Users[0].name}</Text>
 				</View>
 				<View style={styles.seperator}>
-					<Text style={styles.sub_heading}>Email</Text>
-					<Text style={styles.account_info}>{Users[0].email}</Text>
+					<Text style={styles.subHeading}>Email</Text>
+					<Text style={styles.accountInfo}>{Users[0].email}</Text>
 				</View>
 				<View style={styles.qrCode}>
 					<QRCode
@@ -24,24 +25,12 @@ export default function AccountScreenInfo() {
 					/>
 				</View>
 				<View style={styles.seperator}>
-					<Text style={styles.sub_heading}>User ID</Text>
-					<Text style={styles.account_userId}>{Users[0].id}</Text>
+					<Text style={styles.subHeading}>User ID</Text>
+					<Text style={styles.accountUserId}>{Users[0].id}</Text>
 				</View>
 			</View>
-			<View>
-				<TouchableOpacity
-					style={styles.btn}
-					onPress={() => router.replace("/")}
-				>
-					<Text style={styles.btn_text}>Sign Out</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={{ ...styles.btn, ...styles.delete_btn }}
-					onPress={() => router.push("/delete-account")}
-				>
-					<Text style={styles.btn_text}>Delete My Account</Text>
-				</TouchableOpacity>
-			</View>
+			<Button title="Sign Out" onPress={() => router.replace("/")} />
+			<Button title="Delete My Account" onPress={() => router.replace("/delete-account")} style={{backgroundColor: "red"}} />
 		</View>
 	);
 }
@@ -58,17 +47,17 @@ const styles = StyleSheet.create({
 		marginTop: 15,
 		marginBottom: 25,
 	},
-	sub_heading: {
+	subHeading: {
 		fontWeight: "700",
 		textAlign: "center",
 		marginBottom: 5,
 	},
-	account_info: {
+	accountInfo: {
 		fontSize: 17,
 		lineHeight: 24,
 		textAlign: "center",
 	},
-	account_userId: {
+	accountUserId: {
 		backgroundColor: "white",
 		borderRadius: 7,
 		fontSize: 24,
@@ -76,20 +65,5 @@ const styles = StyleSheet.create({
 		paddingVertical: 10,
 		marginTop: 5,
 		marginBottom: 15,
-	},
-	btn: {
-		backgroundColor: "black",
-		borderRadius: 7,
-		padding: 20,
-		paddingHorizontal: 35,
-		marginVertical: 10,
-	},
-	delete_btn: {
-		backgroundColor: "red",
-	},
-	btn_text: {
-		textAlign: "center",
-		color: "white",
-		fontWeight: "600",
 	},
 });
