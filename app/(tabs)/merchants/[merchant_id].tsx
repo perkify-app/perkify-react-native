@@ -3,9 +3,13 @@ import {
 	View,
 	StyleSheet,
 	Pressable,
+	Image,
+	Platform,
 } from "react-native";
-import { Merchants, Merchant } from "../../../constants/mock-data/Merchants";
 import { Link, useLocalSearchParams, router } from "expo-router";
+import MapView, { Marker } from "react-native-maps";
+
+import { Merchants, Merchant } from "../../../constants/mock-data/Merchants";
 import { Button } from "../../../screens/components/Button";
 
 const singleMerchant = () => {
@@ -27,7 +31,30 @@ const singleMerchant = () => {
 			</Text>
 			<Text style={styles.title}>{correctMerchant.company_name}</Text>
 			<View style={styles.mapPlaceholder}>
-				<Text>Map/Image placeholder</Text>
+				{Platform.OS === "web" ? (
+					<Image
+						source={require("../../../assets/images/map-placeholder.jpg")}
+						style={{ width: "100%", height: "100%" }}
+					/>
+				) : (
+					<MapView
+						style={{ width: "100%", height: "100%" }}
+						initialRegion={{
+							latitude: 53.47221762503716,
+							longitude: -2.238378094847027,
+							latitudeDelta: 0.005,
+							longitudeDelta: 0.045,
+						}}
+					>
+						<Marker
+							coordinate={{
+								latitude: 53.47221762503716,
+								longitude: -2.238378094847027,
+							}}
+							title={correctMerchant.company_name}
+						/>
+					</MapView>
+				)}
 			</View>
 			<Text style={styles.description}>{correctMerchant.description}</Text>
 			<Text style={styles.description}>{correctMerchant.phone_number}</Text>
