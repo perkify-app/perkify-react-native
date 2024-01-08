@@ -5,7 +5,7 @@ export default function Layout() {
 	return (
 		<Stack screenOptions={{ headerShown: false }}>
 			<Stack.Screen
-				name="camera"
+				name="index"
 				options={{
 					presentation: "modal",
 				}}

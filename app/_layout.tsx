@@ -44,7 +44,6 @@ function RootLayoutNav() {
 	return (
 		<Stack>
 			<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-			<Stack.Screen name="(modals)/modal-example" options={{ presentation: "modal" }} />
 			<Stack.Screen name="(modals)/delete-account" options={{ presentation: "modal", title: "Confirm Account Deletion" }} />
 			<Stack.Screen name="(modals)/customer-welcome" options={{ presentation: "modal", title: "Welcome!", headerShown: false }} />
 			<Stack.Screen
