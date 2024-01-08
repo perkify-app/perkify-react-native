@@ -72,6 +72,14 @@ export default function MerchantListScreen() {
           onChangeText={handleInputChange}
           value={input}
         />
+        {input !== "" && (
+          <TouchableOpacity
+            onPress={handleClearInput}
+            style={styles.clearButton}
+          >
+            <Text style={styles.clearButtonText}>X</Text>
+          </TouchableOpacity>
+        )}
       </View>
       {merchants.map((merchant) => (
         <TouchableOpacity
@@ -161,5 +169,11 @@ const styles = StyleSheet.create({
   clearButtonText: {
     color: "black",
     fontSize: 12,
+  },
+  clearButton: {
+    padding: 5,
+    borderRadius: 50,
+    marginLeft: -30,
+    backgroundColor: "#DDDDDD",
   },
 });
