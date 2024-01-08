@@ -1,22 +1,35 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import { LoyaltyCards } from "../../../constants/mock-data/LoyaltyCards";
 import StampCard from "../../../screens/components/StampCard";
-import { Merchants } from "../../../constants/mock-data/Merchants";
 import QRCode from "react-native-qrcode-svg";
 import { useLocalSearchParams, Link } from "expo-router";
+import { useEffect, useState } from "react";
+import getLoyaltyCardById from "../../utils/getLoyaltyCardbyId";
 
 export default function LoyaltyCardScreenInfo() {
-  const id = useLocalSearchParams();
-  const filteredCard = LoyaltyCards.filter((card) => {
-    return card.loyalty_program_id === Number(id.loyalty_program_id);
-  });
-  const card = filteredCard[0];
-  console.log(card);
+  interface loyaltyCard {
+    loyalty_program_id?: number;
+    user_id?: number;
+    points?: number;
+    created_at?: string;
+    name?: string;
+    required_points?: number;
+  }
 
-  const merchant = Merchants.find(
-    (m) => m.merchant_id === card.loyalty_program_id
-  );
-  const merchantName = merchant ? merchant.company_name : "Unknown Merchant";
+  const id = useLocalSearchParams();
+
+  const loyaltyCardId = id.id;
+
+  const [loyaltyCard, setLoyaltyCard] = useState<loyaltyCard>({});
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    getLoyaltyCardById(loyaltyCardId).then((data) => {
+      setLoyaltyCard(data);
+      setLoading(false);
+    });
+  }, []);
+
+  const merchantName = loyaltyCard ? loyaltyCard.name : "Unknown Merchant";
 
   return (
     <View>
@@ -26,11 +39,12 @@ export default function LoyaltyCardScreenInfo() {
       <View style={styles.exampleContainer}>
         <QRCode size={200} value="https://www.google.com" />
         <View style={styles.separator} />
-        <Text style={styles.exampleText}>Merchant: {merchantName}</Text>
+        <Text style={styles.exampleText}>Merchant: {merchantName} </Text>
         <Text style={styles.exampleText}>
-          You've got {card.points} stamp{card.points === 1 ? "" : "s"}!
+          You've got {loyaltyCard.points} stamp
+          {loyaltyCard.points === 1 ? "" : "s"}!
         </Text>
-        <StampCard stamps={card.points} />
+        <StampCard stamps={loyaltyCard.points} />
       </View>
     </View>
   );

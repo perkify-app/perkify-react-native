@@ -9,7 +9,6 @@ import {
 import QRCode from "react-native-qrcode-svg";
 
 import { useEffect, useState } from "react";
-// import { Merchants } from "../../../constants/mock-data/Merchants";
 import { Users } from "../../../constants/mock-data/Users";
 import getAllMerchants from "../../utils/getMerchants";
 
@@ -24,6 +23,7 @@ export default function MerchantListScreen() {
       setLoading(false);
     });
   }, []);
+  console.log(merchants);
 
   if (loading)
     return (
@@ -42,7 +42,7 @@ export default function MerchantListScreen() {
       {merchants.map((merchant) => (
         <TouchableOpacity
           style={styles.button}
-          key={merchant.merchant_id}
+          key={merchant.id}
           onPress={() => router.push(`/merchants/${merchant.id}`)}
         >
           <Text style={styles.buttonText}>{merchant.company_name}</Text>

@@ -28,7 +28,6 @@ const singleMerchant = () => {
 
   useEffect(() => {
     getMerchantById(merchantId).then((data) => {
-      console.log(data);
       setMerchant(data);
       setLoading(false);
     });
