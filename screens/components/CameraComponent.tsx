@@ -54,16 +54,25 @@ export default function CameraComponent() {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
+      <View style={styles.overlay}>
+        <Text style={styles.text}>
+          {scanned ? "QR Code Scanned! 🎉" : "Please scan QR code 🤖"}
+        </Text>
+      </View>
       <View style={styles.buttonContainer}></View>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: "100%",
     width: "100%",
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   camera: {
     flex: 1,
