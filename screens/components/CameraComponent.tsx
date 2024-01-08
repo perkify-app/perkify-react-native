@@ -3,7 +3,6 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { useState, useEffect } from "react";
 import { Button, StyleSheet, Text, View, Modal, Alert } from "react-native";
 
-
 export default function CameraComponent() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
@@ -20,7 +19,7 @@ export default function CameraComponent() {
   useEffect(() => {
     if (scanned) {
       console.log("QR Code Scanned!");
-      
+      setModalVisible(true);
     }
   }, [scanned]);
 
@@ -64,6 +63,12 @@ export default function CameraComponent() {
         </Text>
       </View>
       <View style={styles.buttonContainer}></View>
+
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}></View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -75,8 +80,8 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   camera: {
     flex: 1,
@@ -95,5 +100,17 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "white",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    elevation: 5,
   },
 });
