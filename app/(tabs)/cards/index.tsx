@@ -1,33 +1,52 @@
 import {
-	StyleSheet,
-	Text,
-	View,
-	ScrollView,
-	TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
-import { LoyaltyPrograms } from "../../../constants/mock-data/LoyaltyPrograms";
-import { LoyaltyCards } from "../../../constants/mock-data/LoyaltyCards";
+import { useEffect, useState } from "react";
 import { router, Link } from "expo-router";
+import getLoyaltyCards from "../../utils/getLoyaltyCards";
+import getLoyaltyCardsByUser from "../../utils/getLoyaltyCardsByUser";
 
 export default function LoyaltyCardListScreen() {
-	return (
-		<ScrollView contentContainerStyle={styles.container}>
-			<Text style={styles.title}>My Loyalty Cards</Text>
-			<View style={styles.separator} />
-			{LoyaltyPrograms.map((loyaltyProgram) => (
-				<TouchableOpacity
-					style={styles.button}
-					key={loyaltyProgram.id}
-					onPress={() => router.push(`/cards/${loyaltyProgram.id}`)}
-				>
-					<View style={styles.buttonContainer}>
-						<Text style={styles.buttonText}>{loyaltyProgram.name}</Text>
-						<Text style={styles.buttonText}>0/{loyaltyProgram.points}</Text>
-					</View>
-				</TouchableOpacity>
-			))}
-		</ScrollView>
-	);
+  const [loyaltyCards, setLoyaltycards] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    getLoyaltyCardsByUser().then((data) => {
+      setLoyaltycards(data);
+      setLoading(false);
+    });
+  }, []);
+  if (loading)
+    return (
+      <View>
+        <ActivityIndicator size="large" color="#0000ff" />;
+      </View>
+    );
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>My Loyalty Cards</Text>
+      <View style={styles.separator} />
+      {loyaltyCards.map((loyaltyCard) => (
+        <TouchableOpacity
+          style={styles.button}
+          key={loyaltyCard.id}
+          onPress={() => router.push(`/cards/${loyaltyCard.id}`)}
+        >
+          <View style={styles.buttonContainer}>
+            <Text style={styles.buttonText}>{loyaltyCard.name}</Text>
+            <Text style={styles.buttonText}>
+              {" "}
+              {loyaltyCard.points}/{loyaltyCard.required_points}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
