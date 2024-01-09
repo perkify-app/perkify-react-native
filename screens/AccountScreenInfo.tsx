@@ -38,7 +38,7 @@ export default function AccountScreenInfo() {
         </View>
         <View style={styles.qrCode}>
           <QRCode
-              value={user ? user.name : 'Loading...'} 
+              value={user ? user.id : 'Loading...'} 
 
             size={200}
             backgroundColor="transparent"

@@ -2,12 +2,16 @@ import { Camera } from "expo-camera";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useState, useEffect } from "react";
 import { Button, StyleSheet, Text, View, Modal, Alert } from "react-native";
+import getLoyaltyCardById from "../../app/utils/getLoyaltyCardbyId";
+import patchLoyaltyCardByID from "../../app/utils/patchLoyaltyCardByID";
 
 export default function CameraComponent() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [data, setData] = useState(null);
+  const [points, setPoints] = useState(0);
+  const [loyaltyCardId, setLoyaltyCardId] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -22,6 +26,29 @@ export default function CameraComponent() {
       setModalVisible(true);
     }
   }, [scanned]);
+
+  useEffect(() => {
+    if (data) {
+      getLoyaltyCardById(data).then(loyaltyCard => {
+        setPoints(loyaltyCard.points);
+        setLoyaltyCardId(loyaltyCard.id);
+      });
+    }
+  }, [data]);
+  
+  const incrementPoints = () => {
+    const newPoints = points + 1;
+    setPoints(newPoints);
+    patchLoyaltyCardByID(loyaltyCardId, { inc_points: 1 });
+  };
+  
+  const decrementPoints = () => {
+    const newPoints = points > 0 ? points - 1 : 0;
+    setPoints(newPoints);
+    if (newPoints < points) {
+      patchLoyaltyCardByID(loyaltyCardId, { inc_points: -1 });
+    }
+  };
 
   if (hasPermission === null) {
     return <View />;
@@ -40,6 +67,8 @@ export default function CameraComponent() {
       </View>
     );
   }
+
+
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
@@ -63,17 +92,17 @@ export default function CameraComponent() {
           {scanned ? "QR Code Scanned! 🎉" : "Please scan QR code 🤖"}
         </Text>
       </View>
-      <View style={styles.buttonContainer}></View>
-
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-          <Text>Customer ID: {data}</Text>
-          </View>
-        
-
-        </View>
-      </Modal>
+  <View style={styles.modalContainer}>
+    <View style={styles.modalContent}>
+      <Text>Customer ID: {data}</Text>
+      <Text>Points: {points}</Text>
+      <Button title="+" onPress={incrementPoints} />
+      <Button title="-" onPress={decrementPoints} />
+      <Button title="Close" onPress={() => setModalVisible(false)} />
+    </View>
+  </View>
+</Modal>
     </View>
   );
 }
