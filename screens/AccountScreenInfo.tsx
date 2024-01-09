@@ -49,7 +49,7 @@ export default function AccountScreenInfo() {
         </View>
         <View style={styles.seperator}>
           <Text style={styles.subHeading}>User ID</Text>
-          {/* {user && <Text style={styles.accountUserId}>{user.id}</Text>} */}
+          {user && <Text style={styles.accountUserId}>{user.id}</Text>}
         </View>
       </View>
       <Button title="Sign Out" onPress={() => router.replace("/")} />
