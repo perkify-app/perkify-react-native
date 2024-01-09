@@ -1,9 +1,10 @@
 import { Camera } from "expo-camera";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useState, useEffect } from "react";
-import { Button, StyleSheet, Text, View, Modal, Alert } from "react-native";
-import getLoyaltyCardById from "../../app/utils/getLoyaltyCardbyId";
+import { Button, StyleSheet, Text, View, Modal } from "react-native";
+
 import patchLoyaltyCardByID from "../../app/utils/patchLoyaltyCardByID";
+import getLoyaltyCardByUserId from "../../app/utils/getLoyaltyCardByUserId";
 
 export default function CameraComponent() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -29,13 +30,22 @@ export default function CameraComponent() {
 
   useEffect(() => {
     if (data) {
-      getLoyaltyCardById(data).then(loyaltyCard => {
-        setPoints(loyaltyCard.points);
-        setLoyaltyCardId(loyaltyCard.id);
-      });
+      const fetchLoyaltyCard = async () => {
+        const loyaltyCards = await getLoyaltyCardByUserId(data);
+        if (loyaltyCards.length > 0) {
+          const loyaltyCard = loyaltyCards[0];
+          setPoints(loyaltyCard.points);
+          setLoyaltyCardId(loyaltyCard.id);
+        }
+      };
+
+      fetchLoyaltyCard();
     }
   }, [data]);
-  
+
+  useEffect(() => {
+  }, [points, loyaltyCardId]);
+
   const incrementPoints = () => {
     const newPoints = points + 1;
     setPoints(newPoints);
