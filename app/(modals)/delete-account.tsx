@@ -1,11 +1,6 @@
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import {
-	Platform,
-	StyleSheet,
-	Text,
-	View,
-} from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import { Button } from "../../screens/components/Button";
 
 export default function DeleteAccountModal() {
@@ -16,18 +11,13 @@ export default function DeleteAccountModal() {
 				Are you sure you want to delete your account? This action is
 				irreversible!
 			</Text>
-			<View style={styles.buttonsContainer}>
-				<Button
-					title="Confirm"
-					style={{ backgroundColor: "red" }}
-					onPress={() => router.replace("/")}
-				/>
-				<Button
-					title="Cancel"
-					onPress={() => router.replace("/(tabs)/account")}
-				/>
-			</View>
-			
+			<Button
+				title="Confirm"
+				style={{ backgroundColor: "red" }}
+				onPress={() => router.replace("/")}
+			/>
+			<Button title="Cancel" onPress={() => router.push("/account/")} />
+
 			<StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
 		</View>
 	);
@@ -38,6 +28,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
+		padding: 20,
 	},
 	title: {
 		fontSize: 20,
@@ -46,9 +37,6 @@ const styles = StyleSheet.create({
 	modalText: {
 		marginVertical: 20,
 		color: "#555",
-	},
-	buttonsContainer: {
-		flexDirection: "row",
-		gap: 15,
+		textAlign: "center",
 	},
 });

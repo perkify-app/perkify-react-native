@@ -4,10 +4,14 @@ import QRCode from "react-native-qrcode-svg";
 
 import { Users } from "../constants/mock-data/Users";
 import { Button } from "./components/Button";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function AccountScreenInfo() {
 	return (
-		<View style={styles.container}>
+		<ScrollView contentContainerStyle={styles.container}>
+			<View style={styles.seperator}>
+				<Text style={styles.title}>My Account</Text>
+			</View>
 			<View>
 				<View style={styles.seperator}>
 					<Text style={styles.subHeading}>Full Name</Text>
@@ -30,15 +34,24 @@ export default function AccountScreenInfo() {
 				</View>
 			</View>
 			<Button title="Sign Out" onPress={() => router.replace("/")} />
-			<Button title="Delete My Account" onPress={() => router.replace("/delete-account")} style={{backgroundColor: "red"}} />
-		</View>
+			<Button
+				title="Delete My Account"
+				onPress={() => router.push("/delete-account")}
+				style={{ backgroundColor: "red" }}
+			/>
+		</ScrollView>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
+		justifyContent: "center",
 		alignItems: "center",
-		marginHorizontal: 50,
+		paddingVertical: 20,
+	},
+	title: {
+		fontSize: 20,
+		fontWeight: "bold",
 	},
 	seperator: {
 		marginBottom: 25,

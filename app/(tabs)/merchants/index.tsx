@@ -1,4 +1,5 @@
 import {
+
   StyleSheet,
   Text,
   View,
@@ -6,6 +7,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   TextInput,
+        
 } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 
@@ -16,16 +18,20 @@ import getAllMerchants from "../../utils/getMerchants";
 import { router } from "expo-router";
 
 export default function MerchantListScreen() {
+
   const [merchants, setMerchants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [input, setInput] = useState("");
 
-  useEffect(() => {
-    getAllMerchants().then((data) => {
-      setMerchants(data);
-      setLoading(false);
-    });
-  }, []);
+
+
+	useEffect(() => {
+		getAllMerchants().then((data) => {
+			setMerchants(data);
+			setLoading(false);
+		});
+	}, []);
+
 
   const filterMerchants = (input) => {
     if (input.trim() === "") {
@@ -176,4 +182,5 @@ const styles = StyleSheet.create({
     marginLeft: -25,
     backgroundColor: "#DDDDDD",
   },
+
 });
