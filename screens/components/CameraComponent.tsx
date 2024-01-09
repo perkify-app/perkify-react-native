@@ -7,7 +7,6 @@ import patchLoyaltyCardByID from "../../app/utils/patchLoyaltyCardByID";
 import getLoyaltyCardByUserId from "../../app/utils/getLoyaltyCardByUserId";
 import StampCard from "./StampCard";
 
-
 export default function CameraComponent() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
@@ -46,7 +45,7 @@ export default function CameraComponent() {
   }, [data]);
 
   useEffect(() => {
-    console.log('Points:', points);
+    console.log("Points:", points);
   }, [points, loyaltyCardId]);
 
   const incrementPoints = () => {
@@ -54,7 +53,7 @@ export default function CameraComponent() {
     setPoints(newPoints);
     patchLoyaltyCardByID(loyaltyCardId, { inc_points: 1 });
   };
-  
+
   const decrementPoints = () => {
     const newPoints = points > 0 ? points - 1 : 0;
     setPoints(newPoints);
@@ -81,11 +80,9 @@ export default function CameraComponent() {
     );
   }
 
-
-
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    setData(data)
+    setData(data);
     console.log(
       `Bar code with type ${type} and data ${data} has been scanned!`
     ); // replace this with state?
@@ -106,17 +103,25 @@ export default function CameraComponent() {
         </Text>
       </View>
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
-  <View style={styles.modalContainer}>
-    <View style={styles.modalContent}>
-      <Text>Customer {data}: {points} stamps</Text>
-      
-      <StampCard stamps={points} />
-      <Button title="+" onPress={incrementPoints} />
-      <Button title="-" onPress={decrementPoints} />
-      <Button title="Close" onPress={() => setModalVisible(false)} />
-    </View>
-  </View>
-</Modal>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text>
+              Customer {data}: {points} stamps
+            </Text>
+
+            <StampCard stamps={points} />
+            <View style={styles.buttonContainer}>
+              <View style={styles.button}>
+                <Button title="Increment" onPress={incrementPoints} />
+              </View>
+              <View style={styles.button}>
+                <Button title="Decrement" onPress={decrementPoints} />
+              </View>
+            </View>
+            <Button title="Close" onPress={() => setModalVisible(false)} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -137,12 +142,15 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     backgroundColor: "transparent",
-    margin: 64,
+    justifyContent: "center",
+    paddingHorizontal: 16,
   },
   button: {
-    flex: 1,
+    flex: 2,
     alignSelf: "flex-end",
     alignItems: "center",
+
+    padding: 10,
   },
   text: {
     fontSize: 24,
@@ -160,5 +168,6 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     elevation: 5,
+    margin: 40,
   },
 });
