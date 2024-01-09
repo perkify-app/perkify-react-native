@@ -51,7 +51,7 @@ export default function CameraComponent() {
   const incrementPoints = () => {
     Alert.alert(
       "Confirmation",
-      "Are you sure you want to increment the points?",
+      "Are you sure you want to increase points?",
       [
         {
           text: "Cancel",
