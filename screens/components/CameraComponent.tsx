@@ -44,6 +44,7 @@ export default function CameraComponent() {
   }, [data]);
 
   useEffect(() => {
+    console.log('Points:', points);
   }, [points, loyaltyCardId]);
 
   const incrementPoints = () => {
