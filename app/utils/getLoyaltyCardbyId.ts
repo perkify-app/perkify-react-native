@@ -7,7 +7,7 @@ const getLoyaltyCardById = (loyaltyCardId) => {
 
   return axios.get(apiUrl).then((res) => {
     console.log(res.data.loyalty_card);
-    return res.data.loyalty_card;
+    return res.data;
   });
 };
 

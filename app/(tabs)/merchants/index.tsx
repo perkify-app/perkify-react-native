@@ -40,9 +40,9 @@ export default function MerchantListScreen() {
     }
   };
 
-  const handleInputChange = (text) => {
-    setInput(text);
-    filterMerchants(text);
+  const handleInputChange = (inputText) => {
+    setInput(inputText);
+    filterMerchants(inputText);
   };
 
   const handleClearInput = () => {
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   clearButton: {
     padding: 5,
     borderRadius: 50,
-    marginLeft: -30,
+    marginLeft: -25,
     backgroundColor: "#DDDDDD",
   },
 });
