@@ -104,9 +104,13 @@ export default function MerchantListScreen() {
           selectedValue={selectedCategory}
           onValueChange={(itemValue) => handleCategoryChange(itemValue)}
         >
-          <Picker.Item label="all categories" value="all items" />
-          <Picker.Item label="coffee" value="coffee" />
-          <Picker.Item label="bakery" value="bakery" />
+          <Picker.Item
+            label="all categories"
+            value="all items"
+            style={{ fontSize: 15 }}
+          />
+          <Picker.Item label="coffee" value="coffee" style={{ fontSize: 15 }} />
+          <Picker.Item label="bakery" value="bakery" style={{ fontSize: 15 }} />
         </Picker>
       </View>
       {merchants.map((merchant) => (
