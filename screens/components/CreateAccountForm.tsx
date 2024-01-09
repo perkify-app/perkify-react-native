@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import Checkbox from "expo-checkbox";
 import { router } from "expo-router";
 
@@ -30,46 +30,53 @@ export default function CreateAccountForm() {
 	}, [name, email, pass, confirmPass, isChecked]);
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>Create Account</Text>
-			<InputField header="Email" state={email} onChange={setEmail} />
-			<InputField header="Full Name" state={name} onChange={setName} />
-			<InputField
-				header="Password"
-				state={pass}
-				onChange={setPass}
-				hide={true}
-			/>
-			<InputField
-				header="Confirm Password"
-				state={confirmPass}
-				onChange={setConfirmPass}
-				hide={true}
-			/>
-			<View style={styles.termsContainer}>
-				<Checkbox
-					style={styles.checkbox}
-					value={isChecked}
-					onValueChange={setChecked}
+		<ScrollView>
+			<View style={styles.container}>
+				<Text style={styles.title}>Create Account</Text>
+				<InputField header="Email" state={email} onChange={setEmail} />
+				<InputField header="Full Name" state={name} onChange={setName} />
+				<InputField
+					header="Password"
+					state={pass}
+					onChange={setPass}
+					hide={true}
 				/>
-				<Text>Accept terms and conditions</Text>
+				<InputField
+					header="Confirm Password"
+					state={confirmPass}
+					onChange={setConfirmPass}
+					hide={true}
+				/>
+				<View style={styles.termsContainer}>
+					<Checkbox
+						style={styles.checkbox}
+						value={isChecked}
+						onValueChange={setChecked}
+					/>
+					<Text>Accept terms and conditions</Text>
+				</View>
+				<Button
+					title="Sign Up"
+					style={{
+						backgroundColor: isValidated ? "black" : "lightgray",
+						marginTop: 20,
+					}}
+					disabled={!isValidated}
+					onPress={() => router.replace("/customer-welcome")}
+				/>
 			</View>
-			<Button title="Sign Up" style={{
-					backgroundColor: isValidated ? "black" : "lightgray", marginTop: 20,
-				}}
-				disabled={!isValidated}
-				onPress={() => router.replace("/customer-welcome")} />
-		</View>
+		</ScrollView>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
+		flex: 1,
 		backgroundColor: "white",
+		justifyContent: "center",
 		alignItems: "center",
-		width: "75%",
-		maxWidth: 600,
-		padding: 30,
+		padding: 25,
+		margin: 20,
 	},
 	title: {
 		fontSize: 24,

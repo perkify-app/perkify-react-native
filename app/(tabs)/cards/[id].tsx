@@ -1,14 +1,10 @@
-import {
-	StyleSheet,
-	Text,
-	View,
-	ActivityIndicator,
-} from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import StampCard from "../../../screens/components/StampCard";
 import QRCode from "react-native-qrcode-svg";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import getLoyaltyCardById from "../../utils/getLoyaltyCardbyId";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface loyaltyCard {
 	loyalty_program_id?: number;
@@ -42,7 +38,7 @@ export default function LoyaltyCardScreenInfo() {
 		);
 
 	return (
-		<View>
+		<ScrollView>
 			<View style={styles.exampleContainer}>
 				<QRCode size={200} value="https://www.google.com" />
 				<View style={styles.separator} />
@@ -53,7 +49,7 @@ export default function LoyaltyCardScreenInfo() {
 				</Text>
 				<StampCard stamps={loyaltyCard.points} />
 			</View>
-		</View>
+		</ScrollView>
 	);
 }
 

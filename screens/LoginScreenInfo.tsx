@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "white",
 		alignItems: "center",
-		width: "75%",
+		width: "85%",
 		maxWidth: 600,
-		padding: 30,
+		padding: 25,
 	},
 	title: {
 		fontSize: 24,
