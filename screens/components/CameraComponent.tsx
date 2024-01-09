@@ -108,8 +108,8 @@ export default function CameraComponent() {
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
   <View style={styles.modalContainer}>
     <View style={styles.modalContent}>
-      <Text>Customer ID: {data}</Text>
-      <Text>Points: {points}</Text>
+      <Text>Customer {data}: {points} stamps</Text>
+      
       <StampCard stamps={points} />
       <Button title="+" onPress={incrementPoints} />
       <Button title="-" onPress={decrementPoints} />
