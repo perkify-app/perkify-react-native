@@ -5,6 +5,8 @@ import { Button, StyleSheet, Text, View, Modal } from "react-native";
 
 import patchLoyaltyCardByID from "../../app/utils/patchLoyaltyCardByID";
 import getLoyaltyCardByUserId from "../../app/utils/getLoyaltyCardByUserId";
+import StampCard from "./StampCard";
+
 
 export default function CameraComponent() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -108,6 +110,7 @@ export default function CameraComponent() {
     <View style={styles.modalContent}>
       <Text>Customer ID: {data}</Text>
       <Text>Points: {points}</Text>
+      <StampCard stamps={points} />
       <Button title="+" onPress={incrementPoints} />
       <Button title="-" onPress={decrementPoints} />
       <Button title="Close" onPress={() => setModalVisible(false)} />
