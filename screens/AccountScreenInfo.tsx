@@ -31,23 +31,22 @@ export default function AccountScreenInfo() {
       <View>
         <View style={styles.seperator}>
           <Text style={styles.subHeading}>Full Name</Text>
-          <Text style={styles.accountInfo}>{user.name}</Text>
-        </View>
+          <Text style={styles.accountInfo}>{user ? user.name : 'Loading...'}</Text>        </View>
         <View style={styles.seperator}>
           <Text style={styles.subHeading}>Email</Text>
           <Text style={styles.accountInfo}>{Users[0].email}</Text>
         </View>
         <View style={styles.qrCode}>
           <QRCode
-            value={user.name} //hardcoded for now
+              value={user ? user.name : 'Loading...'} 
+
             size={200}
             backgroundColor="transparent"
           />
         </View>
         <View style={styles.seperator}>
           <Text style={styles.subHeading}>User ID</Text>
-          <Text style={styles.accountUserId}>{user.id}</Text>
-        </View>
+          {user && <Text style={styles.accountUserId}>{user.id}</Text>}        </View>
       </View>
       <Button title="Sign Out" onPress={() => router.replace("/")} />
       <Button
