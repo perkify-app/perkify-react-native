@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { CustomerOnboarding } from "../constants/OnboardingData";
 import { Button } from "./components/Button";
+import { ScrollView } from "react-native-gesture-handler";
 
 const Item = ({ item, index }) => (
 	<View style={styles.item}>
@@ -15,8 +16,13 @@ const Item = ({ item, index }) => (
 
 export default function WelcomeScreenInfo() {
 	return (
-		<View>
+		<ScrollView>
 			<View style={styles.container}>
+				<View style={styles.separator} />
+				<Text style={{ ...styles.title, textAlign: "center" }}>
+					Welcome to your Treasure Trove!
+				</Text>
+				<View style={styles.separator} />
 				<Text style={styles.intro}>
 					Toss the bulky cards and ditch the paper receipts. Step into a world
 					where every purchase fuels your ultimate shopping comeback with
@@ -30,19 +36,21 @@ export default function WelcomeScreenInfo() {
 					onPress={() => router.replace("/merchants/")}
 				/>
 			</View>
-		</View>
+		</ScrollView>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
 		alignItems: "center",
-		marginHorizontal: 50,
+		justifyContent: "center",
+		padding: 25,
+		marginBottom: 10,
 	},
 	item: {
 		backgroundColor: "#E0E0E0",
 		flex: 1,
-		width: "100%",
+		width: "95%",
 		padding: 25,
 		marginVertical: 12,
 		marginHorizontal: 16,
@@ -61,5 +69,10 @@ const styles = StyleSheet.create({
 	description: {
 		fontSize: 16,
 		marginTop: 10,
+	},
+	separator: {
+		marginVertical: 15,
+		height: 1,
+		width: "80%",
 	},
 });

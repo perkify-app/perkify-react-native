@@ -6,8 +6,10 @@ import QRCode from "react-native-qrcode-svg";
 import axios from "axios";
 import { Users } from "../constants/mock-data/Users";
 import { Button } from "./components/Button";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function AccountScreenInfo() {
+
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -89,4 +91,5 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 15,
   },
+
 });

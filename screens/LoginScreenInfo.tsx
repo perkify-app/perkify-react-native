@@ -22,7 +22,7 @@ export default function LoginScreenInfo() {
 			<View style={styles.btnContainer}>
 				<Button
 					title="Login"
-					onPress={() => router.replace("/(tabs)/merchants")}
+					onPress={() => router.replace("/merchants")}
 				/>
 				<Button
 					title="Create Account"
@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "white",
 		alignItems: "center",
-		width: "75%",
+		width: "85%",
 		maxWidth: 600,
-		padding: 30,
+		padding: 25,
 	},
 	title: {
 		fontSize: 24,

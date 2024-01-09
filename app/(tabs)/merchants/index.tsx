@@ -1,10 +1,13 @@
 import {
+
   StyleSheet,
   Text,
   View,
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  TextInput,
+        
 } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 
@@ -15,22 +18,50 @@ import getAllMerchants from "../../utils/getMerchants";
 import { router } from "expo-router";
 
 export default function MerchantListScreen() {
+
   const [merchants, setMerchants] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [input, setInput] = useState("");
 
-  useEffect(() => {
-    getAllMerchants().then((data) => {
-      setMerchants(data);
-      setLoading(false);
-    });
-  }, []);
+
+
+	useEffect(() => {
+		getAllMerchants().then((data) => {
+			setMerchants(data);
+			setLoading(false);
+		});
+	}, []);
+
+
+  const filterMerchants = (input) => {
+    if (input.trim() === "") {
+      getAllMerchants().then((data) => {
+        setMerchants(data);
+      });
+    } else {
+      const filteredMerchants = merchants.filter((merchant) =>
+        merchant.company_name.toLowerCase().startsWith(input.toLowerCase())
+      );
+      setMerchants(filteredMerchants);
+    }
+  };
+
+  const handleInputChange = (inputText) => {
+    setInput(inputText);
+    filterMerchants(inputText);
+  };
+
+  const handleClearInput = () => {
+    setInput("");
+    filterMerchants("");
+  };
 
   if (loading)
     return (
       <View>
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
-    )
+    );
   return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
       <QRCode size={200} value="https://www.google.com" />
@@ -39,6 +70,23 @@ export default function MerchantListScreen() {
         <Text style={styles.account_userId}>{Users[0].id}</Text>
       </View>
       <Text style={styles.title}>View Merchants with promotions</Text>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.inputField}
+          placeholder="search..."
+          placeholderTextColor={"grey"}
+          onChangeText={handleInputChange}
+          value={input}
+        />
+        {input !== "" && (
+          <TouchableOpacity
+            onPress={handleClearInput}
+            style={styles.clearButton}
+          >
+            <Text style={styles.clearButtonText}>X</Text>
+          </TouchableOpacity>
+        )}
+      </View>
       {merchants.map((merchant) => (
         <TouchableOpacity
           style={styles.button}
@@ -108,4 +156,31 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 30,
   },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 35,
+  },
+  inputField: {
+    height: 40,
+    width: 300,
+    backgroundColor: "white",
+    borderWidth: 1,
+    padding: 10,
+    color: "black",
+    border: "none",
+    borderRadius: 10,
+  },
+  clearButtonText: {
+    color: "black",
+    fontSize: 12,
+  },
+  clearButton: {
+    padding: 5,
+    borderRadius: 50,
+    marginLeft: -25,
+    backgroundColor: "#DDDDDD",
+  },
+
 });
