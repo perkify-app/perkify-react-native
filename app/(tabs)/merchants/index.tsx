@@ -12,13 +12,14 @@ import QRCode from "react-native-qrcode-svg";
 import { useEffect, useState } from "react";
 import { Users } from "../../../constants/mock-data/Users";
 import getAllMerchants from "../../utils/getMerchants";
-
+import { Picker } from "@react-native-picker/picker";
 import { router } from "expo-router";
 
 export default function MerchantListScreen() {
   const [merchants, setMerchants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [input, setInput] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     getAllMerchants().then((data) => {
@@ -48,6 +49,22 @@ export default function MerchantListScreen() {
   const handleClearInput = () => {
     setInput("");
     filterMerchants("");
+  };
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    if (category === "all items") {
+      getAllMerchants().then((data) => {
+        setMerchants(data);
+      });
+    } else {
+      getAllMerchants().then((data) => {
+        const filteredCategory = data.filter(
+          (merchant) => merchant.category === category
+        );
+        setMerchants(filteredCategory);
+      });
+    }
   };
 
   if (loading)
@@ -80,6 +97,17 @@ export default function MerchantListScreen() {
             <Text style={styles.clearButtonText}>X</Text>
           </TouchableOpacity>
         )}
+      </View>
+      <View style={styles.pickerContainer}>
+        <Picker
+          style={styles.picker}
+          selectedValue={selectedCategory}
+          onValueChange={(itemValue) => handleCategoryChange(itemValue)}
+        >
+          <Picker.Item label="all categories" value="all items" />
+          <Picker.Item label="coffee" value="coffee" />
+          <Picker.Item label="bakery" value="bakery" />
+        </Picker>
       </View>
       {merchants.map((merchant) => (
         <TouchableOpacity
@@ -163,7 +191,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     color: "black",
-    border: 0,
     borderRadius: 10,
   },
   clearButtonText: {
@@ -175,5 +202,15 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginLeft: -25,
     backgroundColor: "#DDDDDD",
+  },
+  pickerContainer: {
+    marginBottom: 35,
+  },
+  picker: {
+    height: 30,
+    width: 150,
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderRadius: 10,
   },
 });
