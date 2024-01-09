@@ -19,7 +19,7 @@ export default function MerchantListScreen() {
   const [merchants, setMerchants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [input, setInput] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     getAllMerchants().then((data) => {
@@ -62,7 +62,6 @@ export default function MerchantListScreen() {
         const filteredCategory = data.filter(
           (merchant) => merchant.category === category
         );
-        console.log(filteredCategory);
         setMerchants(filteredCategory);
       });
     }
@@ -101,6 +100,7 @@ export default function MerchantListScreen() {
       </View>
       <View style={styles.pickerContainer}>
         <Picker
+          style={styles.picker}
           selectedValue={selectedCategory}
           onValueChange={(itemValue) => handleCategoryChange(itemValue)}
         >
@@ -191,7 +191,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     color: "black",
-    border: 0,
     borderRadius: 10,
   },
   clearButtonText: {
@@ -206,5 +205,12 @@ const styles = StyleSheet.create({
   },
   pickerContainer: {
     marginBottom: 35,
+  },
+  picker: {
+    height: 30,
+    width: 150,
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderRadius: 10,
   },
 });
