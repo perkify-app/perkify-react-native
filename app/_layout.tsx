@@ -52,7 +52,7 @@ function RootLayoutNav() {
 					presentation: "modal",
 					title: "My Account",
 					headerLeft: () => (
-						<Pressable onPress={() => router.back()}>
+						<Pressable onPress={() => router.push("/account/")}>
 							<FAIcon
 								name="arrow-left"
 								color="darkgray"
@@ -86,7 +86,7 @@ function RootLayoutNav() {
 					headerShown: true,
 					navigationBarHidden: true,
 					headerLeft: () => (
-						<Pressable onPress={() => router.back()}>
+						<Pressable onPress={() => router.push("/")}>
 							<FAIcon
 								name="arrow-left"
 								color="darkgray"

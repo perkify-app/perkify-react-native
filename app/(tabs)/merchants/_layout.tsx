@@ -13,7 +13,7 @@ export default function Layout() {
 					title: "Merchants",
 					headerRight: () => <Text style={{ paddingRight: 10 }}>Logo</Text>,
 					headerLeft: () => (
-						<Pressable onPress={() => router.back()}>
+						<Pressable onPress={() => router.push("/merchants/")}>
 							<FAIcon
 								name="arrow-left"
 								color="darkgray"

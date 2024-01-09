@@ -22,7 +22,7 @@ export default function LoginScreenInfo() {
 			<View style={styles.btnContainer}>
 				<Button
 					title="Login"
-					onPress={() => router.replace("/(tabs)/merchants")}
+					onPress={() => router.replace("/merchants")}
 				/>
 				<Button
 					title="Create Account"
