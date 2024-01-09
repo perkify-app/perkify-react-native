@@ -11,8 +11,10 @@ import { useLocalSearchParams, router } from "expo-router";
 import { useEffect, useState } from "react";
 import getMerchantById from "../../utils/getMerchantById";
 import MapView, { Marker } from "react-native-maps";
+import { ScrollView } from "react-native-gesture-handler";
+import { Button } from "../../../screens/components/Button";
 
-interface merchant {
+interface Merchant {
 	merchant_id: number;
 	company_name?: string;
 	logo_url?: string;
@@ -24,7 +26,7 @@ interface merchant {
 const singleMerchant = () => {
 	const id = useLocalSearchParams();
 
-	const [merchant, setMerchant] = useState<merchant | null>(null);
+	const [merchant, setMerchant] = useState<Merchant | null>(null);
 	const [loading, setLoading] = useState(true);
 
 	const merchantId = id.id;
@@ -44,8 +46,7 @@ const singleMerchant = () => {
 		);
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>{merchant.company_name}</Text>
+		<ScrollView contentContainerStyle={styles.container}>
 			<View style={styles.mapPlaceholder}>
 				{Platform.OS === "web" ? (
 					<Image
@@ -72,23 +73,24 @@ const singleMerchant = () => {
 					</MapView>
 				)}
 			</View>
+			<Text style={styles.title}>{merchant.company_name}</Text>
 			<Text style={styles.description}>{merchant.description}</Text>
 			<Text style={styles.description}>{merchant.phone_no}</Text>
-			<TouchableOpacity
-				style={styles.button}
+			<Button
+				title="View Loyalty Card"
 				onPress={() => {
-					router.push(`/(tabs)/cards/2`);
+					router.push(`/cards/2`);
 				}}
-			>
-				<Text style={styles.btnText}>View Loyalty Card</Text>
-			</TouchableOpacity>
-		</View>
+			/>
+		</ScrollView>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
-		marginTop: 50,
+		justifyContent: "center",
+		alignItems: "center",
+		paddingBottom: 20,
 	},
 	logo: {
 		fontSize: 15,
@@ -109,8 +111,6 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: 300,
 		backgroundColor: "#DDDDDD",
-		marginTop: 20,
-		marginBottom: 20,
 	},
 	back: {
 		marginLeft: 15,

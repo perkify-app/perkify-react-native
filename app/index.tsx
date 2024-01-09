@@ -2,13 +2,10 @@ import { StyleSheet, Text, View } from "react-native";
 
 import LoginScreenInfo from "../screens/LoginScreenInfo";
 
-
 export default function LoginScreen() {
 	return (
 		<View style={styles.container}>
-			<View>
-				<Text style={styles.logo}>Perkify</Text>
-			</View>
+			<Text style={styles.logo}>Perkify</Text>
 			<LoginScreenInfo />
 		</View>
 	);
@@ -19,10 +16,11 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
+		paddingTop: 20,
 	},
 	logo: {
 		fontSize: 42,
 		fontWeight: "700",
-		marginBottom: 75,
+		marginBottom: 50,
 	},
 });
