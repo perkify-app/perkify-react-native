@@ -1,11 +1,20 @@
 import { Camera } from "expo-camera";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useState, useEffect } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View, Modal } from "react-native";
+
+import patchLoyaltyCardByID from "../../app/utils/patchLoyaltyCardByID";
+import getLoyaltyCardByUserId from "../../app/utils/getLoyaltyCardByUserId";
+import StampCard from "./StampCard";
+
 
 export default function CameraComponent() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [data, setData] = useState(null);
+  const [points, setPoints] = useState(0);
+  const [loyaltyCardId, setLoyaltyCardId] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -17,8 +26,42 @@ export default function CameraComponent() {
   useEffect(() => {
     if (scanned) {
       console.log("QR Code Scanned!");
+      setModalVisible(true);
     }
   }, [scanned]);
+
+  useEffect(() => {
+    if (data) {
+      const fetchLoyaltyCard = async () => {
+        const loyaltyCards = await getLoyaltyCardByUserId(data);
+        if (loyaltyCards.length > 0) {
+          const loyaltyCard = loyaltyCards[0];
+          setPoints(loyaltyCard.points);
+          setLoyaltyCardId(loyaltyCard.id);
+        }
+      };
+
+      fetchLoyaltyCard();
+    }
+  }, [data]);
+
+  useEffect(() => {
+    console.log('Points:', points);
+  }, [points, loyaltyCardId]);
+
+  const incrementPoints = () => {
+    const newPoints = points + 1;
+    setPoints(newPoints);
+    patchLoyaltyCardByID(loyaltyCardId, { inc_points: 1 });
+  };
+  
+  const decrementPoints = () => {
+    const newPoints = points > 0 ? points - 1 : 0;
+    setPoints(newPoints);
+    if (newPoints < points) {
+      patchLoyaltyCardByID(loyaltyCardId, { inc_points: -1 });
+    }
+  };
 
   if (hasPermission === null) {
     return <View />;
@@ -38,8 +81,11 @@ export default function CameraComponent() {
     );
   }
 
+
+
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
+    setData(data)
     console.log(
       `Bar code with type ${type} and data ${data} has been scanned!`
     ); // replace this with state?
@@ -59,7 +105,18 @@ export default function CameraComponent() {
           {scanned ? "QR Code Scanned! 🎉" : "Please scan QR code 🤖"}
         </Text>
       </View>
-      <View style={styles.buttonContainer}></View>
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+  <View style={styles.modalContainer}>
+    <View style={styles.modalContent}>
+      <Text>Customer {data}: {points} stamps</Text>
+      
+      <StampCard stamps={points} />
+      <Button title="+" onPress={incrementPoints} />
+      <Button title="-" onPress={decrementPoints} />
+      <Button title="Close" onPress={() => setModalVisible(false)} />
+    </View>
+  </View>
+</Modal>
     </View>
   );
 }
@@ -71,8 +128,8 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   camera: {
     flex: 1,
@@ -91,5 +148,17 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "white",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    elevation: 5,
   },
 });
