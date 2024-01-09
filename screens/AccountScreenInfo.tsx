@@ -9,7 +9,6 @@ import { Button } from "./components/Button";
 import { ScrollView } from "react-native-gesture-handler";
 
 export default function AccountScreenInfo() {
-
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -33,22 +32,25 @@ export default function AccountScreenInfo() {
       <View>
         <View style={styles.seperator}>
           <Text style={styles.subHeading}>Full Name</Text>
-          <Text style={styles.accountInfo}>{user ? user.name : 'Loading...'}</Text>        </View>
+          <Text style={styles.accountInfo}>
+            {user ? user.name : "Loading..."}
+          </Text>
+        </View>
         <View style={styles.seperator}>
           <Text style={styles.subHeading}>Email</Text>
           <Text style={styles.accountInfo}>{Users[0].email}</Text>
         </View>
         <View style={styles.qrCode}>
           <QRCode
-              value={user ? user.id : 'Loading...'} 
-
+            value={user ? user.id : "Loading..."}
             size={200}
             backgroundColor="transparent"
           />
         </View>
         <View style={styles.seperator}>
           <Text style={styles.subHeading}>User ID</Text>
-          {user && <Text style={styles.accountUserId}>{user.id}</Text>}        </View>
+          {/* {user && <Text style={styles.accountUserId}>{user.id}</Text>} */}
+        </View>
       </View>
       <Button title="Sign Out" onPress={() => router.replace("/")} />
       <Button
@@ -91,5 +93,4 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 15,
   },
-
 });
