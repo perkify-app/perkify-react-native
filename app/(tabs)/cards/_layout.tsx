@@ -14,7 +14,7 @@ export default function Layout() {
 					headerShown: true,
 					title: "Loyalty Cards",
 					headerLeft: () => (
-						<Pressable onPress={() => router.back()}>
+						<Pressable onPress={() => router.push("/cards")}>
 							<FAIcon
 								name="arrow-left"
 								color="darkgray"

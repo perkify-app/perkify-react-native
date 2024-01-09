@@ -16,7 +16,7 @@ export default function DeleteAccountModal() {
 				style={{ backgroundColor: "red" }}
 				onPress={() => router.replace("/")}
 			/>
-			<Button title="Cancel" onPress={() => router.back()} />
+			<Button title="Cancel" onPress={() => router.push("/account/")} />
 
 			<StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
 		</View>
