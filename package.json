@@ -14,9 +14,10 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "axios": "^1.6.4",
     "@expo/vector-icons": "^13.0.0",
+    "@react-native-picker/picker": "^2.6.1",
     "@react-navigation/native": "^6.0.2",
+    "axios": "^1.6.4",
     "expo": "~49.0.15",
     "expo-barcode-scanner": "^12.7.0",
     "expo-camera": "^13.6.0",
