@@ -1,7 +1,7 @@
 import { Camera } from "expo-camera";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useState, useEffect } from "react";
-import { Button, StyleSheet, Text, View, Modal } from "react-native";
+import { Button, StyleSheet, Text, View, Modal, Alert } from "react-native";
 
 import patchLoyaltyCardByID from "../../app/utils/patchLoyaltyCardByID";
 import getLoyaltyCardByUserId from "../../app/utils/getLoyaltyCardByUserId";
@@ -49,9 +49,24 @@ export default function CameraComponent() {
   }, [points, loyaltyCardId]);
 
   const incrementPoints = () => {
-    const newPoints = points + 1;
-    setPoints(newPoints);
-    patchLoyaltyCardByID(loyaltyCardId, { inc_points: 1 });
+    Alert.alert(
+      "Confirmation",
+      "Are you sure you want to increment the points?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        { 
+          text: "OK", 
+          onPress: () => {
+            const newPoints = points + 1;
+            setPoints(newPoints);
+            patchLoyaltyCardByID(loyaltyCardId, { inc_points: 1 });
+          } 
+        }
+      ]
+    );
   };
 
   const decrementPoints = () => {
