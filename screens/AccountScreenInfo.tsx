@@ -28,8 +28,8 @@ export default function AccountScreenInfo() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={{marginTop: 30}}>
         <View style={styles.seperator}>
           <Text style={styles.subHeading}>Full Name</Text>
           <Text style={styles.accountInfo}>
@@ -58,7 +58,7 @@ export default function AccountScreenInfo() {
         onPress={() => router.replace("/delete-account")}
         style={{ backgroundColor: "red" }}
       />
-    </View>
+    </ScrollView>
   );
 }
 
