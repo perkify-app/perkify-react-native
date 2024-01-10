@@ -23,9 +23,9 @@ export default function LoyaltyCardListScreen() {
       setLoading(false);
     });
   }, []);
-
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
+
     if (category === "default") {
       getLoyaltyCardsByUser().then((data) => {
         setLoyaltycards(data);
@@ -35,7 +35,6 @@ export default function LoyaltyCardListScreen() {
         console.log(data);
         setLoyaltycards(data);
       });
-			else if (category === "sort by date started") {
     } else if (category === "sort by date started") {
       getSortByDateLoyaltyCards().then((data) => {
         console.log(data);
