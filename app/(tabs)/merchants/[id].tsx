@@ -108,11 +108,17 @@ const singleMerchant = () => {
 				)}
 			</View>
 			<View
-				style={{ alignItems: "center", width: "100%", height: 75, padding: 25 }}
+				style={{
+					alignItems: "center",
+					width: "100%",
+					height: 100,
+					marginTop: 10,
+				}}
 			>
 				<Image
 					source={{ uri: merchant.logo_url }}
-					style={{ width: "50%", height: "100%" }}
+					style={{ width: "100%", height: "100%" }}
+					resizeMode="contain"
 				/>
 			</View>
 			<Text style={styles.title}>{merchant.company_name}</Text>
@@ -162,7 +168,7 @@ const styles = StyleSheet.create({
 	},
 
 	title: {
-		marginTop: 40,
+		marginTop: 20,
 		fontSize: 20,
 		fontWeight: "bold",
 		marginLeft: 15,
