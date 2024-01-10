@@ -6,6 +6,8 @@ import { Button, StyleSheet, Text, View, Modal, Alert } from "react-native";
 import patchLoyaltyCardByID from "../../app/utils/patchLoyaltyCardByID";
 import getLoyaltyCardByUserId from "../../app/utils/getLoyaltyCardByUserId";
 import StampCard from "./StampCard";
+import redeemPointsOnServer from "../../app/utils/resetPointsOnServer";
+
 
 export default function CameraComponent() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -39,6 +41,7 @@ export default function CameraComponent() {
           const loyaltyCard = loyaltyCards[0];
           setPoints(loyaltyCard.points);
           setLoyaltyCardId(loyaltyCard.id);
+          setRequiredPoints(loyaltyCard.required_points)
         }
       };
 
@@ -61,11 +64,15 @@ export default function CameraComponent() {
         },
         { 
           text: "OK", 
-          onPress: () => {
-            const newPoints = points + 1;
+          onPress: async () => {
+            let newPoints = points + 1;
+            if (newPoints >= requiredPoints) {
+              Alert.alert("Congratulations!", "Customer has earned a free coffee. Your points will now be reset.");
+              newPoints = 0;
+              await redeemPointsOnServer("U4", loyaltyCardId);
+            }
             setPoints(newPoints);
-            patchLoyaltyCardByID(loyaltyCardId, { inc_points: 1 });
-          } 
+          }
         }
       ]
     );
@@ -74,9 +81,14 @@ export default function CameraComponent() {
   const decrementPoints = () => {
     const newPoints = points > 0 ? points - 1 : 0;
     setPoints(newPoints);
-    if (newPoints < points) {
+    if (newPoints < points && newPoints > 0) {
       patchLoyaltyCardByID(loyaltyCardId, { inc_points: -1 });
     }
+  };
+
+  const redeemPoints = () => {
+    setPoints(0);
+    patchLoyaltyCardByID(loyaltyCardId, { points: 0 });
   };
 
   if (hasPermission === null) {
@@ -128,13 +140,18 @@ export default function CameraComponent() {
 
             <StampCard stamps={points} />
             <View style={styles.buttonContainer}>
-              <View style={styles.button}>
-                <Button title="Increment" onPress={incrementPoints} />
-              </View>
-              <View style={styles.button}>
-                <Button title="Decrement" onPress={decrementPoints} />
-              </View>
-            </View>
+  <View style={styles.button}>
+    <Button title="Increment" onPress={incrementPoints} />
+  </View>
+  <View style={styles.button}>
+    <Button title="Decrement" onPress={decrementPoints} />
+  </View>
+  {points >= requiredPoints && (
+    <View style={styles.button}>
+      <Button title="Redeem" onPress={redeemPoints} />
+    </View>
+  )}
+</View>
             <Button title="Close" onPress={() => setModalVisible(false)} />
           </View>
         </View>
