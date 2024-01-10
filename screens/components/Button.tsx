@@ -10,15 +10,17 @@ import React from "react";
 import { useAnimation } from "../../hooks/useAnimation";
 
 interface Props extends PressableProps {
-	title: string;
+	title?: string;
 	isDark?: boolean;
 	style?: {};
+	children?: React.ReactNode;
 }
 
 export const Button: React.FC<Props> = ({
 	title,
 	style,
 	isDark = true,
+	children,
 	...props
 }) => {
 	const { fadeIn, fadeOut, opacityValue } = useAnimation();
@@ -26,9 +28,15 @@ export const Button: React.FC<Props> = ({
 	return (
 		<Pressable onPressIn={fadeIn} onPressOut={fadeOut} {...props}>
 			<Animated.View style={{ ...styles.btn, ...style, opacity: opacityValue }}>
-				<Text style={{ color: isDark ? "white" : "black", ...styles.btnText }}>
-					{title}
-				</Text>
+				{children ? (
+					children
+				) : (
+					<Text
+						style={{ color: isDark ? "white" : "black", ...styles.btnText }}
+					>
+						{title}
+					</Text>
+				)}
 			</Animated.View>
 		</Pressable>
 	);

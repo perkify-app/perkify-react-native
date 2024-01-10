@@ -6,26 +6,27 @@ import {
 	TouchableOpacity,
 	ActivityIndicator,
 } from "react-native";
-import { useEffect, useState } from "react";
-import { router, Link } from "expo-router";
-import getLoyaltyCards from "../../utils/getLoyaltyCards";
+import { useState } from "react";
+import { router, useFocusEffect } from "expo-router";
 import getLoyaltyCardsByUser from "../../utils/getLoyaltyCardsByUser";
 
 export default function LoyaltyCardListScreen() {
 	const [loyaltyCards, setLoyaltycards] = useState([]);
 	const [loading, setLoading] = useState(true);
-	useEffect(() => {
-		getLoyaltyCardsByUser().then((data) => {
+
+	useFocusEffect(() => {
+		getLoyaltyCardsByUser("U2").then((data) => {
 			setLoyaltycards(data);
 			setLoading(false);
 		});
-	}, []);
+	});
+
 	if (loading)
 		return (
 			<View>
 				<ActivityIndicator size="large" color="#0000ff" />
 			</View>
-		)
+		);
 
 	return (
 		<ScrollView contentContainerStyle={styles.container}>
