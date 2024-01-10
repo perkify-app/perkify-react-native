@@ -2,17 +2,20 @@ import {
 	Text,
 	View,
 	StyleSheet,
-	TouchableOpacity,
 	ActivityIndicator,
 	Platform,
 	Image,
 } from "react-native";
 import { useLocalSearchParams, router } from "expo-router";
 import { useEffect, useState } from "react";
-import getMerchantById from "../../utils/getMerchantById";
 import MapView, { Marker } from "react-native-maps";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button } from "../../../screens/components/Button";
+
+import getMerchantById from "../../utils/getMerchantById";
+import getLoyaltyCards from "../../utils/getLoyaltyCards";
+import getLoyaltyProgramsByMerchant from "../../utils/getLoyaltyProgramme";
+import createLoyaltyCard from "../../utils/createLoyaltyCard";
 
 interface Merchant {
 	merchant_id: number;
@@ -23,20 +26,48 @@ interface Merchant {
 	phone_no?: string;
 }
 
+interface Card {
+	id: number;
+	loyalty_program_id: number;
+	user_id: string;
+	points: number;
+	created_at: string;
+	merchant_id: string;
+	name: string;
+	required_points: number;
+}
+
 const singleMerchant = () => {
-	const id = useLocalSearchParams();
+	const { id: merchantId } = useLocalSearchParams();
 
 	const [merchant, setMerchant] = useState<Merchant | null>(null);
+	const [card, setCard] = useState<Card | null>(null);
 	const [loading, setLoading] = useState(true);
-
-	const merchantId = id.id;
+	const [activating, setActivating] = useState(false);
 
 	useEffect(() => {
-		getMerchantById(merchantId).then((data) => {
-			setMerchant(data);
+		async function fetchData() {
+			const merchantData = await getMerchantById(merchantId);
+			const cardData = await getLoyaltyCards(
+				`?user_id=U2&merchant_id=${merchantId}`
+			);
+
+			setMerchant(merchantData);
+			setCard(cardData[0]);
 			setLoading(false);
-		});
+		}
+
+		fetchData();
 	}, [merchantId]);
+
+	const activateLoyaltyCard = async () => {
+		setActivating(true);
+		const programsData = await getLoyaltyProgramsByMerchant(merchantId);
+		const cardData = await createLoyaltyCard("U2", programsData[0].id);
+
+		setCard(cardData);
+		setActivating(false);
+	};
 
 	if (loading)
 		return (
@@ -76,12 +107,32 @@ const singleMerchant = () => {
 			<Text style={styles.title}>{merchant.company_name}</Text>
 			<Text style={styles.description}>{merchant.description}</Text>
 			<Text style={styles.description}>{merchant.phone_no}</Text>
-			<Button
-				title="View Loyalty Card"
-				onPress={() => {
-					router.push(`/cards/2`);
-				}}
-			/>
+
+			{card ? (
+				<Button
+					title="View Loyalty Card"
+					onPress={() => {
+						router.push(`/cards/${card.id}`);
+					}}
+				/>
+			) : (
+				<Button onPress={activateLoyaltyCard}>
+					{activating ? (
+						<View
+							style={{
+								flexDirection: "row",
+								justifyContent: "center",
+								alignItems: "center",
+							}}
+						>
+							<Text style={styles.activateBtnTxt}>Activating</Text>
+							<ActivityIndicator size="small" color="red" />
+						</View>
+					) : (
+						<Text style={styles.activateBtnTxt}>Activate Loyalty Card</Text>
+					)}
+				</Button>
+			)}
 		</ScrollView>
 	);
 };
@@ -133,6 +184,10 @@ const styles = StyleSheet.create({
 		fontWeight: "600",
 		color: "white",
 		textAlign: "center",
+	},
+	activateBtnTxt: {
+		paddingRight: 10,
+		color: "white",
 	},
 });
 
