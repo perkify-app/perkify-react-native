@@ -26,6 +26,7 @@ export default function MerchantListScreen() {
     getAllMerchants().then((data) => {
       setMerchants(data);
       setLoading(false);
+      setFilteredMerchants(data);
     });
   }, []);
 
