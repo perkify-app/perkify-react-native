@@ -64,7 +64,7 @@ export default function CameraComponent() {
           if (newPoints >= requiredPoints) {
             Alert.alert(
               "Congratulations!",
-              "Customer has earned a free coffee. Your points will now be reset."
+              "Customer has earned a free coffee. Customer points will now be reset."
             );
             newPoints = 0;
             await redeemPointsOnServer("U4", loyaltyCardId);
@@ -193,6 +193,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
+   
   },
   modalContent: {
     backgroundColor: "white",
@@ -200,5 +201,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 5,
     margin: 40,
+    width: "80%",
   },
 });
