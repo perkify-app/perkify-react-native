@@ -6,8 +6,10 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { useEffect, useState } from "react";
-import { router, Link } from "expo-router";
+
+import { useState } from "react";
+import { router, useFocusEffect } from "expo-router";
+
 import getLoyaltyCardsByUser from "../../utils/getLoyaltyCardsByUser";
 import getSortByCompletionLoyaltyCards from "../../utils/getSortByCompletionLoyaltyCards";
 import { Picker } from "@react-native-picker/picker";
@@ -16,17 +18,24 @@ import getSortByCompletionLoyaltyCardsAsc from "../../utils/getSortByCompletionL
 import getSortByDateLoyaltyCardsAsc from "../../utils/getSortByDateLoyaltyCardsASC";
 
 export default function LoyaltyCardListScreen() {
-  const [loyaltyCards, setLoyaltycards] = useState([]);
-  const [loading, setLoading] = useState(true);
+
   const [selectedCategory, setSelectedCategory] = useState("");
-  useEffect(() => {
-    getLoyaltyCardsByUser().then((data) => {
-      setLoyaltycards(data);
-      setLoading(false);
-    });
-  }, []);
+	const [loyaltyCards, setLoyaltycards] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+
+
+	useFocusEffect(() => {
+		getLoyaltyCardsByUser("U2").then((data) => {
+			setLoyaltycards(data);
+			setLoading(false);
+		});
+	});
+
+    
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
+
 
     if (category === "default") {
       getLoyaltyCardsByUser().then((data) => {

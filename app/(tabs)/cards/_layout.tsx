@@ -22,7 +22,7 @@ export default function Layout() {
 								style={{
 									paddingLeft: 0,
 									paddingRight: 10,
-									margin: 0
+									margin: 0,
 								}}
 							/>
 						</Pressable>
