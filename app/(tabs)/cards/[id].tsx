@@ -37,22 +37,23 @@ export default function LoyaltyCardScreenInfo() {
       </View>
     );
 
-  return (
-    <ScrollView>
-      <View style={styles.exampleContainer}>
-        <QRCode size={200} value="https://www.google.com" />
-        <View style={styles.separator} />
-        <Text style={styles.exampleText}>Merchant: {merchantName} </Text>
-        <Text style={styles.exampleText}>
-          You've got {loyaltyCard.points} stamp
-          {loyaltyCard.points === 1 ? "" : "s"}!
-        </Text>
-        <StampCard stamps={loyaltyCard.points} />
-      </View>
-    </ScrollView>
-  );
-}
 
+	return (
+		<ScrollView>
+			<View style={styles.exampleContainer}>
+				<QRCode size={200} value="https://www.google.com" />
+				<View style={styles.separator} />
+				<Text style={styles.exampleText}>Merchant: {merchantName} </Text>
+				<Text style={styles.exampleText}>
+					You've got {loyaltyCard.points} stamp
+					{loyaltyCard.points === 1 ? "" : "s"}!
+				</Text>
+		        <StampCard stamps={loyaltyCard.points} requiredPoints={loyaltyCard.required_points} />
+
+			</View>
+		</ScrollView>
+	);
+}
 const styles = StyleSheet.create({
   exampleContainer: {
     marginTop: 50,

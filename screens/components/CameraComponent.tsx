@@ -6,6 +6,7 @@ import { Button, StyleSheet, Text, View, Modal, Alert } from "react-native";
 import patchLoyaltyCardByID from "../../app/utils/patchLoyaltyCardByID";
 import getLoyaltyCardByUserId from "../../app/utils/getLoyaltyCardByUserId";
 import StampCard from "./StampCard";
+import redeemPointsOnServer from "../../app/utils/resetPointsOnServer";
 
 export default function CameraComponent() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -14,6 +15,7 @@ export default function CameraComponent() {
   const [data, setData] = useState(null);
   const [points, setPoints] = useState(0);
   const [loyaltyCardId, setLoyaltyCardId] = useState(null);
+  const [requiredPoints, setRequiredPoints] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -37,6 +39,7 @@ export default function CameraComponent() {
           const loyaltyCard = loyaltyCards[0];
           setPoints(loyaltyCard.points);
           setLoyaltyCardId(loyaltyCard.id);
+          setRequiredPoints(loyaltyCard.required_points);
         }
       };
 
@@ -49,32 +52,40 @@ export default function CameraComponent() {
   }, [points, loyaltyCardId]);
 
   const incrementPoints = () => {
-    Alert.alert(
-      "Confirmation",
-      "Are you sure you want to increase points?",
-      [
-        {
-          text: "Cancel",
-          style: "cancel"
+    Alert.alert("Confirmation", "Are you sure you want to increase points?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "OK",
+        onPress: async () => {
+          let newPoints = points + 1;
+          if (newPoints >= requiredPoints) {
+            Alert.alert(
+              "Congratulations!",
+              "Customer has earned a free coffee. Customer points will now be reset."
+            );
+            newPoints = 0;
+            await redeemPointsOnServer("U4", loyaltyCardId);
+          }
+          setPoints(newPoints);
         },
-        { 
-          text: "OK", 
-          onPress: () => {
-            const newPoints = points + 1;
-            setPoints(newPoints);
-            patchLoyaltyCardByID(loyaltyCardId, { inc_points: 1 });
-          } 
-        }
-      ]
-    );
+      },
+    ]);
   };
 
   const decrementPoints = () => {
     const newPoints = points > 0 ? points - 1 : 0;
     setPoints(newPoints);
-    if (newPoints < points) {
+    if (newPoints < points && newPoints > 0) {
       patchLoyaltyCardByID(loyaltyCardId, { inc_points: -1 });
     }
+  };
+
+  const redeemPoints = () => {
+    setPoints(0);
+    patchLoyaltyCardByID(loyaltyCardId, { points: 0 });
   };
 
   if (hasPermission === null) {
@@ -124,14 +135,19 @@ export default function CameraComponent() {
               Customer {data}: {points} stamps
             </Text>
 
-            <StampCard stamps={points} />
+            <StampCard stamps={points} requiredPoints={requiredPoints} />
             <View style={styles.buttonContainer}>
               <View style={styles.button}>
-                <Button title="Increment" onPress={incrementPoints} />
+                <Button title="Add" onPress={incrementPoints} />
               </View>
               <View style={styles.button}>
-                <Button title="Decrement" onPress={decrementPoints} />
+                <Button title="Remove" onPress={decrementPoints} />
               </View>
+              {points >= requiredPoints && (
+                <View style={styles.button}>
+                  <Button title="Redeem" onPress={redeemPoints} />
+                </View>
+              )}
             </View>
             <Button title="Close" onPress={() => setModalVisible(false)} />
           </View>
@@ -177,6 +193,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
+   
   },
   modalContent: {
     backgroundColor: "white",
@@ -184,5 +201,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 5,
     margin: 40,
+    width: "80%",
   },
 });
