@@ -22,15 +22,14 @@ export default function LoyaltyCardListScreen() {
   const [loyaltyCards, setLoyaltycards] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
-	useFocusEffect(
-		useCallback(() => {
-			getLoyaltyCardsByUser("U2").then((data) => {
-				setLoyaltycards(data);
-				setLoading(false);
-			});
-		}, [])
-	);
+  useFocusEffect(
+    useCallback(() => {
+      getLoyaltyCardsByUser("U2").then((data) => {
+        setLoyaltycards(data);
+        setLoading(false);
+      });
+    }, [])
+  );
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
@@ -109,7 +108,7 @@ export default function LoyaltyCardListScreen() {
           onPress={() => router.push(`/cards/${loyaltyCard.id}`)}
         >
           <View style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>{loyaltyCard.name}</Text>
+            <Text style={styles.buttonText}>{loyaltyCard.company_name}</Text>
             <Text style={styles.buttonText}>
               {loyaltyCard.points}/{loyaltyCard.required_points}
             </Text>
