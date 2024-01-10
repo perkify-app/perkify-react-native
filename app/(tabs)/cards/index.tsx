@@ -11,6 +11,7 @@ import { router, Link } from "expo-router";
 import getLoyaltyCardsByUser from "../../utils/getLoyaltyCardsByUser";
 import getSortByCompletionLoyaltyCards from "../../utils/getSortByCompletionLoyaltyCards";
 import { Picker } from "@react-native-picker/picker";
+import getSortByDateLoyaltyCards from "../../utils/getSortByDateLoyaltyCards";
 
 export default function LoyaltyCardListScreen() {
   const [loyaltyCards, setLoyaltycards] = useState([]);
@@ -23,12 +24,6 @@ export default function LoyaltyCardListScreen() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   getSortByCompletionLoyaltyCards().then((data) => {
-  //     console.log(data);
-  //   });
-  // }, []);
-
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
     if (category === "default") {
@@ -37,6 +32,11 @@ export default function LoyaltyCardListScreen() {
       });
     } else if (category === "sort by completion") {
       getSortByCompletionLoyaltyCards().then((data) => {
+        console.log(data);
+        setLoyaltycards(data);
+      });
+    } else {
+      getSortByDateLoyaltyCards().then((data) => {
         console.log(data);
         setLoyaltycards(data);
       });
@@ -58,9 +58,7 @@ export default function LoyaltyCardListScreen() {
         <Picker
           style={styles.picker}
           selectedValue={selectedCategory}
-          onValueChange={(itemValue, itemIndex) =>
-            handleCategoryChange(itemValue)
-          }
+          onValueChange={(itemValue) => handleCategoryChange(itemValue)}
         >
           <Picker.Item
             label="default"
