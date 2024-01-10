@@ -12,6 +12,8 @@ import getLoyaltyCardsByUser from "../../utils/getLoyaltyCardsByUser";
 import getSortByCompletionLoyaltyCards from "../../utils/getSortByCompletionLoyaltyCards";
 import { Picker } from "@react-native-picker/picker";
 import getSortByDateLoyaltyCards from "../../utils/getSortByDateLoyaltyCards";
+import getSortByCompletionLoyaltyCardsAsc from "../../utils/getSortByCompletionLoyaltyCardsASC";
+import getSortByDateLoyaltyCardsAsc from "../../utils/getSortByDateLoyaltyCardsASC";
 
 export default function LoyaltyCardListScreen() {
   const [loyaltyCards, setLoyaltycards] = useState([]);
@@ -30,13 +32,23 @@ export default function LoyaltyCardListScreen() {
       getLoyaltyCardsByUser().then((data) => {
         setLoyaltycards(data);
       });
-    } else if (category === "sort by completion") {
+    } else if (category === "most complete") {
       getSortByCompletionLoyaltyCards().then((data) => {
         console.log(data);
         setLoyaltycards(data);
       });
-    } else if (category === "sort by date started") {
+    } else if (category === "least complete") {
+      getSortByCompletionLoyaltyCardsAsc().then((data) => {
+        console.log(data);
+        setLoyaltycards(data);
+      });
+    } else if (category === "earliest start date") {
       getSortByDateLoyaltyCards().then((data) => {
+        console.log(data);
+        setLoyaltycards(data);
+      });
+    } else if (category === "latest start date") {
+      getSortByDateLoyaltyCardsAsc().then((data) => {
         console.log(data);
         setLoyaltycards(data);
       });
@@ -54,7 +66,7 @@ export default function LoyaltyCardListScreen() {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>My Loyalty Cards</Text>
       <View style={styles.separator} />
-      <View style={styles.pickerContainer}>
+      <ScrollView style={styles.pickerContainer}>
         <Picker
           style={styles.picker}
           selectedValue={selectedCategory}
@@ -71,12 +83,22 @@ export default function LoyaltyCardListScreen() {
             style={{ fontSize: 15 }}
           />
           <Picker.Item
+            label="least complete"
+            value="least complete"
+            style={{ fontSize: 15 }}
+          />
+          <Picker.Item
             label="earliest start date"
-            value="sort by date started"
+            value="earliest start date"
+            style={{ fontSize: 15 }}
+          />
+          <Picker.Item
+            label="latest start date"
+            value="latest start date"
             style={{ fontSize: 15 }}
           />
         </Picker>
-      </View>
+      </ScrollView>
       {loyaltyCards.map((loyaltyCard) => (
         <TouchableOpacity
           style={styles.button}
@@ -97,9 +119,9 @@ export default function LoyaltyCardListScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    paddingTop: 50,
   },
   title: {
     fontSize: 20,
