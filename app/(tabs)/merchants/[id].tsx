@@ -107,10 +107,14 @@ const singleMerchant = () => {
 					</MapView>
 				)}
 			</View>
-			<Image
-				source={{ uri: merchant.logo_url }}
-				style={{ width: "100%", height: "100%" }}
-			/>
+			<View
+				style={{ alignItems: "center", width: "100%", height: 75, padding: 25 }}
+			>
+				<Image
+					source={{ uri: merchant.logo_url }}
+					style={{ width: "50%", height: "100%" }}
+				/>
+			</View>
 			<Text style={styles.title}>{merchant.company_name}</Text>
 			<Text style={styles.description}>{merchant.description}</Text>
 			<Text style={styles.description}>{merchant.phone_no}</Text>
