@@ -15,7 +15,7 @@ export default function AccountScreenInfo() {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "https://perkify-api.onrender.com/api/users/U2"
+          "https://perkify-api.onrender.com/api/users/U4"
         );
         console.log(response.data);
         setUser(response.data);
