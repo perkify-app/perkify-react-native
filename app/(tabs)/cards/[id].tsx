@@ -7,71 +7,71 @@ import getLoyaltyCardById from "../../utils/getLoyaltyCardbyId";
 import { ScrollView } from "react-native-gesture-handler";
 
 interface loyaltyCard {
-	loyalty_program_id?: number;
-	user_id?: number;
-	points?: number;
-	created_at?: string;
-	name?: string;
-	required_points?: number;
+  loyalty_program_id?: number;
+  user_id?: number;
+  points?: number;
+  created_at?: string;
+  name?: string;
+  required_points?: number;
 }
 
 export default function LoyaltyCardScreenInfo() {
-	const id = useLocalSearchParams();
+  const id = useLocalSearchParams();
 
-	const [loyaltyCard, setLoyaltyCard] = useState<loyaltyCard | null>(null);
-	const [loading, setLoading] = useState(true);
+  const [loyaltyCard, setLoyaltyCard] = useState<loyaltyCard | null>(null);
+  const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		getLoyaltyCardById(id.id).then((data) => {
-			setLoyaltyCard(data);
-			setLoading(false);
-		});
-	}, []);
+  useEffect(() => {
+    getLoyaltyCardById(id.id).then((data) => {
+      setLoyaltyCard(data);
+      setLoading(false);
+    });
+  }, []);
 
-	const merchantName = loyaltyCard ? loyaltyCard.name : "Unknown Merchant";
+  const merchantName = loyaltyCard ? loyaltyCard.name : "Unknown Merchant";
 
-	if (loading)
-		return (
-			<View>
-				<ActivityIndicator size="large" color="#0000ff" />
-			</View>
-		);
+  if (loading)
+    return (
+      <View>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
 
-	return (
-		<ScrollView>
-			<View style={styles.exampleContainer}>
-				<QRCode size={200} value="https://www.google.com" />
-				<View style={styles.separator} />
-				<Text style={styles.exampleText}>Merchant: {merchantName} </Text>
-				<Text style={styles.exampleText}>
-					You've got {loyaltyCard.points} stamp
-					{loyaltyCard.points === 1 ? "" : "s"}!
-				</Text>
-				<StampCard stamps={loyaltyCard.points} />
-			</View>
-		</ScrollView>
-	);
+  return (
+    <ScrollView>
+      <View style={styles.exampleContainer}>
+        <QRCode size={200} value="https://www.google.com" />
+        <View style={styles.separator} />
+        <Text style={styles.exampleText}>Merchant: {merchantName} </Text>
+        <Text style={styles.exampleText}>
+          You've got {loyaltyCard.points} stamp
+          {loyaltyCard.points === 1 ? "" : "s"}!
+        </Text>
+        <StampCard stamps={loyaltyCard.points} />
+      </View>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
-	exampleContainer: {
-		marginTop: 50,
-		alignItems: "center",
-		justifyContent: "center",
-		marginHorizontal: 50,
-	},
-	exampleText: {
-		fontSize: 17,
-		lineHeight: 24,
-		textAlign: "center",
-	},
-	separator: {
-		marginVertical: 30,
-		height: 1,
-		width: "80%",
-	},
-	back: {
-		marginTop: 50,
-		marginLeft: 20,
-	},
+  exampleContainer: {
+    marginTop: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 50,
+  },
+  exampleText: {
+    fontSize: 17,
+    lineHeight: 24,
+    textAlign: "center",
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: "80%",
+  },
+  back: {
+    marginTop: 50,
+    marginLeft: 20,
+  },
 });

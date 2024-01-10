@@ -34,22 +34,18 @@ export default function LoyaltyCardListScreen() {
       });
     } else if (category === "most complete") {
       getSortByCompletionLoyaltyCards().then((data) => {
-        console.log(data);
         setLoyaltycards(data);
       });
     } else if (category === "least complete") {
       getSortByCompletionLoyaltyCardsAsc().then((data) => {
-        console.log(data);
         setLoyaltycards(data);
       });
     } else if (category === "earliest start date") {
       getSortByDateLoyaltyCards().then((data) => {
-        console.log(data);
         setLoyaltycards(data);
       });
     } else if (category === "latest start date") {
       getSortByDateLoyaltyCardsAsc().then((data) => {
-        console.log(data);
         setLoyaltycards(data);
       });
     }
