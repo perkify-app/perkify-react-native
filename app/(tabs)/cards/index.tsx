@@ -35,7 +35,8 @@ export default function LoyaltyCardListScreen() {
         console.log(data);
         setLoyaltycards(data);
       });
-    } else {
+			else if (category === "sort by date started") {
+    } else if (category === "sort by date started") {
       getSortByDateLoyaltyCards().then((data) => {
         console.log(data);
         setLoyaltycards(data);
@@ -66,12 +67,12 @@ export default function LoyaltyCardListScreen() {
             style={{ fontSize: 15 }}
           />
           <Picker.Item
-            label="sort by completion"
-            value="sort by completion"
+            label="most complete"
+            value="most complete"
             style={{ fontSize: 15 }}
           />
           <Picker.Item
-            label="sort by date started"
+            label="earliest start date"
             value="sort by date started"
             style={{ fontSize: 15 }}
           />
