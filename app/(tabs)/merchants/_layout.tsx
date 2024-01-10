@@ -11,7 +11,6 @@ export default function Layout() {
 				options={{
 					headerShown: true,
 					title: "Merchants",
-					headerRight: () => <Text style={{ paddingRight: 10 }}>Logo</Text>,
 					headerLeft: () => (
 						<Pressable onPress={() => router.push("/merchants/")}>
 							<FAIcon

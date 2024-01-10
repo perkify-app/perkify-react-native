@@ -20,10 +20,11 @@ import createLoyaltyCard from "../../utils/createLoyaltyCard";
 interface Merchant {
 	merchant_id: number;
 	company_name?: string;
-	logo_url?: string;
 	description?: string;
 	address?: string;
+	lat_long?: string;
 	phone_no?: string;
+	logo_url?: string;
 }
 
 interface Card {
@@ -44,6 +45,8 @@ const singleMerchant = () => {
 	const [card, setCard] = useState<Card | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [activating, setActivating] = useState(false);
+
+	const latlong = merchant?.lat_long.split(",").map((val) => Number(val));
 
 	useEffect(() => {
 		async function fetchData() {
@@ -88,25 +91,34 @@ const singleMerchant = () => {
 					<MapView
 						style={{ width: "100%", height: "100%" }}
 						initialRegion={{
-							latitude: 53.47221762503716,
-							longitude: -2.238378094847027,
+							latitude: latlong[0],
+							longitude: latlong[1],
 							latitudeDelta: 0.005,
 							longitudeDelta: 0.045,
 						}}
 					>
 						<Marker
 							coordinate={{
-								latitude: 53.47221762503716,
-								longitude: -2.238378094847027,
+								latitude: latlong[0],
+								longitude: latlong[1],
 							}}
 							title={merchant.company_name}
 						/>
 					</MapView>
 				)}
 			</View>
+			<View
+				style={{ alignItems: "center", width: "100%", height: 75, padding: 25 }}
+			>
+				<Image
+					source={{ uri: merchant.logo_url }}
+					style={{ width: "50%", height: "100%" }}
+				/>
+			</View>
 			<Text style={styles.title}>{merchant.company_name}</Text>
 			<Text style={styles.description}>{merchant.description}</Text>
 			<Text style={styles.description}>{merchant.phone_no}</Text>
+			<Text style={styles.description}>{merchant.address}</Text>
 
 			{card ? (
 				<Button
