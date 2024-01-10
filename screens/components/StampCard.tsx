@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const StampCard = ({ stamps }) => { 
+  const layout = { 6: [2, 3], 8: [2, 4], 9: [3, 3], 10: [2, 5] };
+
   const renderStamps = () => {
     const stampElements = [];
     for (let row = 0; row < 2; row++) {
