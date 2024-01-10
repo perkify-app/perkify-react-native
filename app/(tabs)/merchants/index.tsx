@@ -55,14 +55,14 @@ export default function MerchantListScreen() {
     setSelectedCategory(category);
     if (category === "all items") {
       getAllMerchants().then((data) => {
-        setMerchants(data);
+        setFilteredMerchants(data);
       });
     } else {
       getAllMerchants().then((data) => {
         const filteredCategory = data.filter(
           (merchant) => merchant.category === category
         );
-        setMerchants(filteredCategory);
+        setFilteredMerchants(filteredCategory);
       });
     }
   };
