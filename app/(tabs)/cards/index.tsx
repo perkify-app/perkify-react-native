@@ -1,3 +1,4 @@
+import { useState, useCallback } from "react";
 import {
 	StyleSheet,
 	Text,
@@ -7,7 +8,6 @@ import {
 	ActivityIndicator,
 } from "react-native";
 
-import { useState } from "react";
 import { router, useFocusEffect } from "expo-router";
 
 import getLoyaltyCardsByUser from "../../utils/getLoyaltyCardsByUser";
@@ -22,12 +22,14 @@ export default function LoyaltyCardListScreen() {
 	const [loyaltyCards, setLoyaltycards] = useState([]);
 	const [loading, setLoading] = useState(true);
 
-	useFocusEffect(() => {
-		getLoyaltyCardsByUser("U2").then((data) => {
-			setLoyaltycards(data);
-			setLoading(false);
-		});
-	});
+	useFocusEffect(
+		useCallback(() => {
+			getLoyaltyCardsByUser("U2").then((data) => {
+				setLoyaltycards(data);
+				setLoading(false);
+			});
+		}, [])
+	);
 
 	const handleCategoryChange = (category) => {
 		setSelectedCategory(category);
