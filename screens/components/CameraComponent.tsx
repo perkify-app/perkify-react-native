@@ -135,13 +135,13 @@ export default function CameraComponent() {
               Customer {data}: {points} stamps
             </Text>
 
-            <StampCard stamps={points} />
+            <StampCard stamps={points} requiredPoints={requiredPoints} />
             <View style={styles.buttonContainer}>
               <View style={styles.button}>
-                <Button title="Increment" onPress={incrementPoints} />
+                <Button title="Add" onPress={incrementPoints} />
               </View>
               <View style={styles.button}>
-                <Button title="Decrement" onPress={decrementPoints} />
+                <Button title="Remove" onPress={decrementPoints} />
               </View>
               {points >= requiredPoints && (
                 <View style={styles.button}>

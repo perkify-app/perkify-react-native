@@ -1,15 +1,22 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const StampCard = ({ stamps }) => { 
-  const layout = { 6: [2, 3], 8: [2, 4], 9: [3, 3], 10: [2, 5] };
+const StampCard = ({ stamps, requiredPoints }) => {
+  const calculateLayout = (requiredPoints) => {
+    
+    const layouts = { 6: [2, 3], 8: [2, 4], 9: [3, 3], 10: [2, 5] };
+    return layouts[requiredPoints] || [2, 3];
+  };
 
   const renderStamps = () => {
+    const layout = calculateLayout(requiredPoints);
+    const [rows, cols] = layout;
+
     const stampElements = [];
-    for (let row = 0; row < 2; row++) {
+    for (let row = 0; row < rows; row++) {
       const rowStamps = [];
-      for (let col = 0; col < 5; col++) {
-        const index = row * 5 + col;
+      for (let col = 0; col < cols; col++) {
+        const index = row * cols + col;
         const isFilled = index < stamps;
         const stampStyle = isFilled ? styles.stampFilled : styles.stampEmpty;
         const stampContent = isFilled ? <Text style={styles.stampText}>Filled</Text> : null;

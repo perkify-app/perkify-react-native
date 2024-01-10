@@ -47,7 +47,8 @@ export default function LoyaltyCardScreenInfo() {
 					You've got {loyaltyCard.points} stamp
 					{loyaltyCard.points === 1 ? "" : "s"}!
 				</Text>
-				<StampCard stamps={loyaltyCard.points} />
+		        <StampCard stamps={loyaltyCard.points} requiredPoints={loyaltyCard.required_points} />
+
 			</View>
 		</ScrollView>
 	);
