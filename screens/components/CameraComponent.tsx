@@ -14,6 +14,8 @@ export default function CameraComponent() {
   const [data, setData] = useState(null);
   const [points, setPoints] = useState(0);
   const [loyaltyCardId, setLoyaltyCardId] = useState(null);
+  const [requiredPoints, setRequiredPoints] = useState(null);
+
 
   useEffect(() => {
     (async () => {
