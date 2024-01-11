@@ -11,6 +11,7 @@ export const Loading = () => {
 
 const styles = StyleSheet.create({
 	container: {
+        backgroundColor: Colours.backgroundOffWhite,
 		justifyContent: "center",
 		alignItems: "center",
 		width: "100%",

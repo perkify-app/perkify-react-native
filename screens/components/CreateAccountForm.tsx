@@ -6,6 +6,7 @@ import { router } from "expo-router";
 import { InputField } from "./InputField";
 import { Button } from "./Button";
 import { useAuth } from "../../hooks/useAuth";
+import { Colours } from "../../constants/Colours";
 
 export default function CreateAccountForm() {
 	const [name, setName] = useState("Billy Bob");
@@ -33,7 +34,7 @@ export default function CreateAccountForm() {
 	}, [name, email, pass, confirmPass, isChecked]);
 
 	return (
-		<ScrollView>
+		<ScrollView style={styles.page}>
 			<View style={styles.container}>
 				<Text style={styles.title}>Create Account</Text>
 				<InputField header="Email" state={email} onChange={setEmail} />
@@ -61,7 +62,10 @@ export default function CreateAccountForm() {
 				<Button
 					title="Sign Up"
 					style={{
-						backgroundColor: isValidated ? "black" : "lightgray",
+						backgroundColor: isValidated
+							? Colours.backgroundDarkBlue
+							: "#A6A6DE",
+						borderColor: isValidated ? Colours.backgroundDarkBlue : "#A6A6DE",
 						marginTop: 20,
 					}}
 					disabled={!isValidated}
@@ -76,12 +80,17 @@ export default function CreateAccountForm() {
 }
 
 const styles = StyleSheet.create({
+	page: {
+		backgroundColor: Colours.backgroundOffWhite,
+	},
 	container: {
 		flex: 1,
 		backgroundColor: "white",
-		justifyContent: "center",
 		alignItems: "center",
-		padding: 25,
+		justifyContent: "center",
+		paddingHorizontal: 25,
+		paddingVertical: 35,
+		borderRadius: 15,
 		margin: 20,
 	},
 	title: {

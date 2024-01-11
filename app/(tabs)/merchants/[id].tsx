@@ -18,6 +18,7 @@ import getLoyaltyProgramsByMerchant from "../../utils/getLoyaltyProgramme";
 import createLoyaltyCard from "../../utils/createLoyaltyCard";
 import { useAuth } from "../../../hooks/useAuth";
 import { Loading } from "../../../screens/components/Loading";
+import { Colours } from "../../../constants/Colours";
 
 interface Merchant {
 	merchant_id: number;
@@ -107,71 +108,75 @@ const singleMerchant = () => {
 					</MapView>
 				)}
 			</View>
-			<View
-				style={{
-					alignItems: "center",
-					width: "100%",
-					height: 100,
-					marginTop: 10,
-				}}
-			>
-				<Image
-					source={{ uri: merchant.logo_url }}
-					style={{ width: "100%", height: "100%" }}
-					resizeMode="contain"
-				/>
-			</View>
-			<Text style={styles.title}>{merchant.company_name}</Text>
-			<Text style={styles.description}>{merchant.description}</Text>
-			<Text style={styles.description}>{merchant.phone_no}</Text>
-			<Text style={styles.description}>{merchant.address}</Text>
-
-			{card ? (
-				<Button
-					title="View Loyalty Card"
-					onPress={() => {
-						router.push(`/cards/${card.id}`);
+			<View style={styles.content}>
+				<View
+					style={{
+						alignItems: "center",
+						width: "100%",
+						height: 100,
 					}}
-				/>
-			) : (
-				<Button onPress={activateLoyaltyCard}>
-					{activating ? (
-						<View
-							style={{
-								flexDirection: "row",
-								justifyContent: "center",
-								alignItems: "center",
-							}}
-						>
-							<Text style={styles.activateBtnTxt}>Activating</Text>
-							<ActivityIndicator size="small" color="red" />
-						</View>
-					) : (
-						<Text style={styles.activateBtnTxt}>Activate Loyalty Card</Text>
-					)}
-				</Button>
-			)}
+				>
+					<Image
+						source={{ uri: merchant.logo_url }}
+						style={{ width: "100%", height: "100%" }}
+						resizeMode="contain"
+					/>
+				</View>
+				<Text style={styles.title}>{merchant.company_name}</Text>
+				<Text style={styles.description}>{merchant.description}</Text>
+				<Text style={styles.description}>{merchant.phone_no}</Text>
+				<Text style={styles.description}>{merchant.address}</Text>
+
+				{card ? (
+					<Button
+						title="View Loyalty Card"
+						onPress={() => {
+							router.push(`/cards/${card.id}`);
+						}}
+					/>
+				) : (
+					<Button onPress={activateLoyaltyCard}>
+						{activating ? (
+							<View
+								style={{
+									flexDirection: "row",
+									justifyContent: "center",
+									alignItems: "center",
+								}}
+							>
+								<Text style={styles.activateBtnTxt}>Activating</Text>
+								<ActivityIndicator size="small" color={Colours.pink} />
+							</View>
+						) : (
+							<Text style={styles.activateBtnTxt}>Activate Loyalty Card</Text>
+						)}
+					</Button>
+				)}
+			</View>
 		</ScrollView>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
+		alignItems: "center",
+		backgroundColor: "white",
+	},
+	content: {
 		justifyContent: "center",
 		alignItems: "center",
-		paddingBottom: 20,
+		width: "100%",
+		padding: 20,
 	},
 	logo: {
 		fontSize: 15,
 		textAlign: "right",
 		marginRight: 15,
 	},
-
 	title: {
-		marginTop: 20,
+		marginVertical: 15,
 		fontSize: 20,
 		fontWeight: "bold",
-		marginLeft: 15,
 	},
 	mapPlaceholder: {
 		alignSelf: "center",
@@ -181,27 +186,10 @@ const styles = StyleSheet.create({
 		height: 300,
 		backgroundColor: "#DDDDDD",
 	},
-	back: {
-		marginLeft: 15,
-	},
 	description: {
 		textAlign: "center",
 		fontSize: 15,
 		marginBottom: 20,
-	},
-	button: {
-		backgroundColor: "black",
-		padding: 10,
-		marginBottom: 10,
-		width: 300,
-		alignSelf: "center",
-		borderRadius: 7,
-	},
-	btnText: {
-		fontSize: 16,
-		fontWeight: "600",
-		color: "white",
-		textAlign: "center",
 	},
 	activateBtnTxt: {
 		paddingRight: 10,

@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 	},
 	accountUserId: {
 		backgroundColor: "white",
-		borderRadius: 7,
+		borderRadius: 14,
 		fontSize: 24,
 		textAlign: "center",
 		paddingVertical: 10,

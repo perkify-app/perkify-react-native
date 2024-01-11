@@ -1,8 +1,10 @@
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Platform, StyleSheet, Text, View } from "react-native";
+
 import { Button } from "../../screens/components/Button";
 import { useAuth } from "../../hooks/useAuth";
+import { Colours } from "../../constants/Colours";
 
 export default function DeleteAccountModal() {
 	const { logoutUser } = useAuth();
@@ -16,10 +18,15 @@ export default function DeleteAccountModal() {
 			</Text>
 			<Button
 				title="Confirm"
-				style={{ backgroundColor: "red" }}
+				style={{ backgroundColor: Colours.red, borderColor: Colours.red }}
 				onPress={logoutUser}
 			/>
-			<Button title="Cancel" onPress={() => router.push("/account/")} />
+			<Button
+				title="Cancel"
+				style={{ backgroundColor: "transparent" }}
+				onPress={() => router.push("/account/")}
+				isDark={false}
+			/>
 
 			<StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
 		</View>
@@ -29,9 +36,10 @@ export default function DeleteAccountModal() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: Colours.backgroundOffWhite,
 		alignItems: "center",
 		justifyContent: "center",
-		padding: 20,
+		paddingHorizontal: 30,
 	},
 	title: {
 		fontSize: 20,

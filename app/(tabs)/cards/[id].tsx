@@ -7,6 +7,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { QR } from "../../../screens/components/QR";
 import { useAuth } from "../../../hooks/useAuth";
 import { Loading } from "../../../screens/components/Loading";
+import { Colours } from "../../../constants/Colours";
 
 interface loyaltyCard {
 	loyalty_program_id?: number;
@@ -49,8 +50,8 @@ export default function LoyaltyCardScreenInfo() {
 	if (loading) return <Loading />;
 
 	return (
-		<ScrollView>
-			<View style={styles.exampleContainer}>
+		<ScrollView style={styles.page}>
+			<View style={styles.container}>
 				<QR userId={user.id} showId={false} />
 				<View style={styles.separator} />
 				<Text style={styles.exampleText}>Merchant: {merchantName} </Text>
@@ -67,11 +68,13 @@ export default function LoyaltyCardScreenInfo() {
 	);
 }
 const styles = StyleSheet.create({
-	exampleContainer: {
-		marginTop: 50,
+	page: {
+		backgroundColor: Colours.backgroundOffWhite,
+		padding: 50,
+	},
+	container: {
 		alignItems: "center",
 		justifyContent: "center",
-		marginHorizontal: 50,
 	},
 	exampleText: {
 		fontSize: 17,
