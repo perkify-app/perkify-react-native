@@ -88,9 +88,10 @@ export default function CameraComponent() {
     }
   };
 
-  const redeemPoints = () => {
+  const redeemPoints = async () => {
+    await redeemPointsOnServer("U4", loyaltyCardId);
+    console.log("test points", points);
     setPoints(0);
-    redeemPointsOnServer("U4", loyaltyCardId);
   };
 
   if (hasPermission === null) {
