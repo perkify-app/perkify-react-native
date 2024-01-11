@@ -4,10 +4,37 @@ import { router } from "expo-router";
 
 import { InputField } from "./components/InputField";
 import { Button } from "./components/Button";
+import { useAuth } from "../hooks/useAuth";
 
 export default function LoginScreenInfo() {
-	const [email, setEmail] = useState("johndoe@gmail.com");
+	const [email, setEmail] = useState("customer@example.com");
 	const [pass, setPass] = useState("password123");
+	const { loginUser } = useAuth();
+
+	const login = async () => {
+		try {
+			const customerTest = {
+				id: "U5",
+				name: "Sam Junior",
+				email: "customer@example.com",
+			};
+			const merchantTest = {
+				id: "U1",
+				name: "Jonny Smith",
+				email: "merchant@example.com",
+			};
+
+			if (email === "customer@example.com") {
+				loginUser(customerTest);
+				router.replace("/merchants/");
+			} else if (email === "merchant@example.com") {
+				loginUser(merchantTest);
+				router.replace("/merchants/");
+			}
+		} catch (e) {
+			console.log("ERROR!", e);
+		}
+	};
 
 	return (
 		<View style={styles.container}>
@@ -20,10 +47,7 @@ export default function LoginScreenInfo() {
 				hide={true}
 			/>
 			<View style={styles.btnContainer}>
-				<Button
-					title="Login"
-					onPress={() => router.replace("/merchants")}
-				/>
+				<Button title="Login" onPress={login} />
 				<Button
 					title="Create Account"
 					onPress={() => router.push("/create-account")}

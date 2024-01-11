@@ -16,6 +16,7 @@ import getMerchantById from "../../utils/getMerchantById";
 import getLoyaltyCards from "../../utils/getLoyaltyCards";
 import getLoyaltyProgramsByMerchant from "../../utils/getLoyaltyProgramme";
 import createLoyaltyCard from "../../utils/createLoyaltyCard";
+import { useAuth } from "../../../hooks/useAuth";
 
 interface Merchant {
 	merchant_id: number;
@@ -45,16 +46,19 @@ const singleMerchant = () => {
 	const [card, setCard] = useState<Card | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [activating, setActivating] = useState(false);
-
+	
+	const { user, setUser, getUser } = useAuth();
 	const latlong = merchant?.lat_long.split(",").map((val) => Number(val));
 
 	useEffect(() => {
 		async function fetchData() {
+			const userData = await getUser();
 			const merchantData = await getMerchantById(merchantId);
 			const cardData = await getLoyaltyCards(
-				`?user_id=U2&merchant_id=${merchantId}`
+				`?user_id=${userData.id}&merchant_id=${merchantId}`
 			);
-
+			
+			setUser(userData);
 			setMerchant(merchantData);
 			setCard(cardData[0]);
 			setLoading(false);
@@ -66,7 +70,7 @@ const singleMerchant = () => {
 	const activateLoyaltyCard = async () => {
 		setActivating(true);
 		const programsData = await getLoyaltyProgramsByMerchant(merchantId);
-		const cardData = await createLoyaltyCard("U2", programsData[0].id);
+		const cardData = await createLoyaltyCard(user.id, programsData[0].id);
 
 		setCard(cardData);
 		setActivating(false);

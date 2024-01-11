@@ -2,8 +2,11 @@ import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import { Button } from "../../screens/components/Button";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function DeleteAccountModal() {
+	const { logoutUser } = useAuth();
+
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Confirm Account Deletion</Text>
@@ -14,7 +17,7 @@ export default function DeleteAccountModal() {
 			<Button
 				title="Confirm"
 				style={{ backgroundColor: "red" }}
-				onPress={() => router.replace("/")}
+				onPress={logoutUser}
 			/>
 			<Button title="Cancel" onPress={() => router.push("/account/")} />
 

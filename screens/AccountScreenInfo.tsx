@@ -1,96 +1,81 @@
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
+import {
+	ActivityIndicator,
+	StyleSheet,
+	Text,
+	View,
+	ScrollView,
+} from "react-native";
 
-import { StyleSheet, Text, View } from "react-native";
-import QRCode from "react-native-qrcode-svg";
-import axios from "axios";
-import { Users } from "../constants/mock-data/Users";
 import { Button } from "./components/Button";
-import { ScrollView } from "react-native-gesture-handler";
+import { useAuth } from "../hooks/useAuth";
+import { QR } from "./components/QR";
 
 export default function AccountScreenInfo() {
-  const [user, setUser] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const { user, setUser, logoutUser, getUser } = useAuth();
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get(
-          "https://perkify-api.onrender.com/api/users/U4"
-        );
-        console.log(response.data);
-        setUser(response.data);
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
-      }
-    };
+	useEffect(() => {
+		const fetchUser = async () => {
+			try {
+				const userData = await getUser();
+				setUser(userData);
+				setLoading(false);
+			} catch (error) {
+				console.error("Failed to fetch user data:", error);
+			}
+		};
 
-    fetchUser();
-  }, []);
+		fetchUser();
+	}, []);
 
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={{marginTop: 30}}>
-        <View style={styles.seperator}>
-          <Text style={styles.subHeading}>Full Name</Text>
-          <Text style={styles.accountInfo}>
-            {user ? user.name : "Loading..."}
-          </Text>
-        </View>
-        <View style={styles.seperator}>
-          <Text style={styles.subHeading}>Email</Text>
-          <Text style={styles.accountInfo}>{Users[0].email}</Text>
-        </View>
-        <View style={styles.qrCode}>
-          <QRCode
-            value={user ? user.id : "Loading..."}
-            size={200}
-            backgroundColor="transparent"
-          />
-        </View>
-        <View style={styles.seperator}>
-          <Text style={styles.subHeading}>User ID</Text>
-          {user && <Text style={styles.accountUserId}>{user.id}</Text>}
-        </View>
-      </View>
-      <Button title="Sign Out" onPress={() => router.replace("/")} />
-      <Button
-        title="Delete My Account"
-        onPress={() => router.replace("/delete-account")}
-        style={{ backgroundColor: "red" }}
-      />
-    </ScrollView>
-  );
+	if (loading)
+		return (
+			<View>
+				<ActivityIndicator size="large" color="#0000ff" />
+			</View>
+		);
+
+	return (
+		<ScrollView contentContainerStyle={styles.container}>
+			<View style={{ marginTop: 30 }}>
+				<View style={styles.seperator}>
+					<Text style={styles.subHeading}>Full Name</Text>
+					<Text style={styles.accountInfo}>{user.name}</Text>
+				</View>
+				<View style={styles.seperator}>
+					<Text style={styles.subHeading}>Email</Text>
+					<Text style={styles.accountInfo}>{user.email}</Text>
+				</View>
+				<QR userId={user.id} />
+			</View>
+			<Button title="Sign Out" onPress={logoutUser} />
+			<Button
+				title="Delete My Account"
+				onPress={() => router.replace("/delete-account")}
+				style={{ backgroundColor: "red" }}
+			/>
+		</ScrollView>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    marginHorizontal: 50,
-  },
-  seperator: {
-    marginBottom: 25,
-  },
-  qrCode: {
-    marginTop: 15,
-    marginBottom: 25,
-  },
-  subHeading: {
-    fontWeight: "700",
-    textAlign: "center",
-    marginBottom: 5,
-  },
-  accountInfo: {
-    fontSize: 17,
-    lineHeight: 24,
-    textAlign: "center",
-  },
-  accountUserId: {
-    backgroundColor: "white",
-    borderRadius: 7,
-    fontSize: 24,
-    textAlign: "center",
-    paddingVertical: 10,
-    marginTop: 5,
-    marginBottom: 15,
-  },
+	container: {
+		alignItems: "center",
+		marginHorizontal: 50,
+	},
+	seperator: {
+		marginBottom: 25,
+	},
+	subHeading: {
+		fontWeight: "700",
+		textAlign: "center",
+		marginBottom: 5,
+	},
+	accountInfo: {
+		fontSize: 17,
+		lineHeight: 24,
+		textAlign: "center",
+	},
 });
