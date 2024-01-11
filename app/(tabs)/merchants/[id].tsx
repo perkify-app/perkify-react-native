@@ -17,6 +17,7 @@ import getLoyaltyCards from "../../utils/getLoyaltyCards";
 import getLoyaltyProgramsByMerchant from "../../utils/getLoyaltyProgramme";
 import createLoyaltyCard from "../../utils/createLoyaltyCard";
 import { useAuth } from "../../../hooks/useAuth";
+import { Loading } from "../../../screens/components/Loading";
 
 interface Merchant {
 	merchant_id: number;
@@ -46,7 +47,7 @@ const singleMerchant = () => {
 	const [card, setCard] = useState<Card | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [activating, setActivating] = useState(false);
-	
+
 	const { user, setUser, getUser } = useAuth();
 	const latlong = merchant?.lat_long.split(",").map((val) => Number(val));
 
@@ -57,7 +58,7 @@ const singleMerchant = () => {
 			const cardData = await getLoyaltyCards(
 				`?user_id=${userData.id}&merchant_id=${merchantId}`
 			);
-			
+
 			setUser(userData);
 			setMerchant(merchantData);
 			setCard(cardData[0]);
@@ -76,12 +77,7 @@ const singleMerchant = () => {
 		setActivating(false);
 	};
 
-	if (loading)
-		return (
-			<View>
-				<ActivityIndicator size="large" color="#0000ff" />
-			</View>
-		);
+	if (loading) return <Loading />;
 
 	return (
 		<ScrollView contentContainerStyle={styles.container}>

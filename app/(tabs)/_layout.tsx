@@ -2,7 +2,7 @@ import { Tabs } from "expo-router";
 import { FAIcon } from "../../screens/components/FAIcon";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { Text } from "react-native";
+import { Loading } from "../../screens/components/Loading";
 
 export default function TabLayout() {
 	const [loading, setLoading] = useState(true);
@@ -22,9 +22,7 @@ export default function TabLayout() {
 		fetchData();
 	}, []);
 
-	if (loading) {
-		return <Text>Loading...</Text>;
-	}
+	if (loading) return <Loading />;
 
 	return (
 		<Tabs
@@ -51,7 +49,7 @@ export default function TabLayout() {
 				name="camera"
 				options={{
 					title: "Camera",
-          href: user.id === "U1" ? "/camera" : null,
+					href: user.id === "U1" ? "/camera" : null,
 					tabBarIcon: ({ color }) => <FAIcon name="camera" color={color} />,
 				}}
 			/>

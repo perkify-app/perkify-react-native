@@ -1,7 +1,6 @@
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
-	ActivityIndicator,
 	StyleSheet,
 	Text,
 	View,
@@ -11,6 +10,7 @@ import {
 import { Button } from "./components/Button";
 import { useAuth } from "../hooks/useAuth";
 import { QR } from "./components/QR";
+import { Loading } from "./components/Loading";
 
 export default function AccountScreenInfo() {
 	const [loading, setLoading] = useState(true);
@@ -30,12 +30,7 @@ export default function AccountScreenInfo() {
 		fetchUser();
 	}, []);
 
-	if (loading)
-		return (
-			<View>
-				<ActivityIndicator size="large" color="#0000ff" />
-			</View>
-		);
+	if (loading) return <Loading />;
 
 	return (
 		<ScrollView contentContainerStyle={styles.container}>

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import StampCard from "../../../screens/components/StampCard";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
@@ -6,6 +6,7 @@ import getLoyaltyCardById from "../../utils/getLoyaltyCardbyId";
 import { ScrollView } from "react-native-gesture-handler";
 import { QR } from "../../../screens/components/QR";
 import { useAuth } from "../../../hooks/useAuth";
+import { Loading } from "../../../screens/components/Loading";
 
 interface loyaltyCard {
 	loyalty_program_id?: number;
@@ -45,12 +46,7 @@ export default function LoyaltyCardScreenInfo() {
 		? loyaltyCard.company_name
 		: "Unknown Merchant";
 
-	if (loading)
-		return (
-			<View>
-				<ActivityIndicator size="large" color="#0000ff" />
-			</View>
-		);
+	if (loading) return <Loading />;
 
 	return (
 		<ScrollView>

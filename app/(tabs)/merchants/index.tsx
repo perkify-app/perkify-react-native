@@ -5,7 +5,6 @@ import {
 	View,
 	ScrollView,
 	TouchableOpacity,
-	ActivityIndicator,
 	TextInput,
 } from "react-native";
 import { router } from "expo-router";
@@ -14,6 +13,7 @@ import { Picker } from "@react-native-picker/picker";
 import getAllMerchants from "../../utils/getMerchants";
 import { useAuth } from "../../../hooks/useAuth";
 import { QR } from "../../../screens/components/QR";
+import { Loading } from "../../../screens/components/Loading";
 
 export default function MerchantListScreen() {
 	const [merchants, setMerchants] = useState([]);
@@ -78,12 +78,8 @@ export default function MerchantListScreen() {
 		}
 	};
 
-	if (loading)
-		return (
-			<View>
-				<ActivityIndicator size="large" color="#0000ff" />
-			</View>
-		);
+	if (loading) return <Loading />;
+
 	return (
 		<ScrollView contentContainerStyle={styles.contentContainer}>
 			<QR userId={user.id} />

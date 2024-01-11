@@ -5,11 +5,9 @@ import {
 	View,
 	ScrollView,
 	TouchableOpacity,
-	ActivityIndicator,
 } from "react-native";
 
 import { router, useFocusEffect } from "expo-router";
-import { useEffect } from "react";
 import getLoyaltyCardsByUser from "../../utils/getLoyaltyCardsByUser";
 import getSortByCompletionLoyaltyCards from "../../utils/getSortByCompletionLoyaltyCards";
 import { Picker } from "@react-native-picker/picker";
@@ -17,6 +15,7 @@ import getSortByDateLoyaltyCards from "../../utils/getSortByDateLoyaltyCards";
 import getSortByCompletionLoyaltyCardsAsc from "../../utils/getSortByCompletionLoyaltyCardsASC";
 import getSortByDateLoyaltyCardsAsc from "../../utils/getSortByDateLoyaltyCardsASC";
 import { useAuth } from "../../../hooks/useAuth";
+import { Loading } from "../../../screens/components/Loading";
 
 export default function LoyaltyCardListScreen() {
 	const [selectedCategory, setSelectedCategory] = useState("");
@@ -70,12 +69,7 @@ export default function LoyaltyCardListScreen() {
 		}
 	};
 
-	if (loading)
-		return (
-			<View>
-				<ActivityIndicator size="large" color="#0000ff" />
-			</View>
-		);
+	if (loading) return <Loading />;
 
 	return (
 		<ScrollView contentContainerStyle={styles.container}>
