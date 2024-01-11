@@ -71,7 +71,10 @@ export default function CameraComponent() {
             newPoints = 0;
             await redeemPointsOnServer("U4", loyaltyCardId);
           }
+
           setPoints(newPoints);
+          console.log("test points", points);
+          patchLoyaltyCardByID(loyaltyCardId, { inc_points: 1 });
         },
       },
     ]);
@@ -87,7 +90,7 @@ export default function CameraComponent() {
 
   const redeemPoints = () => {
     setPoints(0);
-    patchLoyaltyCardByID(loyaltyCardId, { points: 0 });
+    redeemPointsOnServer("U4", loyaltyCardId);
   };
 
   if (hasPermission === null) {
@@ -195,7 +198,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-   
   },
   modalContent: {
     backgroundColor: "white",
