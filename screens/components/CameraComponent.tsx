@@ -63,6 +63,7 @@ export default function CameraComponent() {
         text: "OK",
         onPress: async () => {
           let newPoints = points + 1;
+          await patchLoyaltyCardByID(loyaltyCardId, { inc_points: 1 });
           if (newPoints >= requiredPoints) {
             Alert.alert(
               "Congratulations!",
@@ -74,7 +75,6 @@ export default function CameraComponent() {
 
           setPoints(newPoints);
           console.log("test points", points);
-          patchLoyaltyCardByID(loyaltyCardId, { inc_points: 1 });
         },
       },
     ]);
