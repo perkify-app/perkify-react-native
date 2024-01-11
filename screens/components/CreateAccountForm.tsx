@@ -5,6 +5,7 @@ import { router } from "expo-router";
 
 import { InputField } from "./InputField";
 import { Button } from "./Button";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function CreateAccountForm() {
 	const [name, setName] = useState("Billy Bob");
@@ -13,6 +14,8 @@ export default function CreateAccountForm() {
 	const [confirmPass, setConfirmPass] = useState("password123");
 	const [isChecked, setChecked] = useState(false);
 	const [isValidated, setValidated] = useState(false);
+
+	const { loginUser } = useAuth();
 
 	useEffect(() => {
 		if (
@@ -62,7 +65,10 @@ export default function CreateAccountForm() {
 						marginTop: 20,
 					}}
 					disabled={!isValidated}
-					onPress={() => router.replace("/customer-welcome")}
+					onPress={() => {
+						loginUser({ id: "U6", name: name, email: email });
+						router.replace("/customer-welcome");
+					}}
 				/>
 			</View>
 		</ScrollView>

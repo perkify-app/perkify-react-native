@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const getSortByDateLoyaltyCardsAsc = () => {
-  const apiUrl = `https://perkify-api.onrender.com/api/loyalty_cards?user_id=U2&sort_by=date&order=desc`;
+const getSortByDateLoyaltyCardsAsc = (userId) => {
+	const apiUrl = `https://perkify-api.onrender.com/api/loyalty_cards?user_id=${userId}&sort_by=date&order=desc`;
 
-  return axios.get(apiUrl).then((res) => {
-    return res.data.loyalty_cards;
-  });
+	return axios.get(apiUrl).then((res) => {
+		return res.data.loyalty_cards;
+	});
 };
 
 export default getSortByDateLoyaltyCardsAsc;
