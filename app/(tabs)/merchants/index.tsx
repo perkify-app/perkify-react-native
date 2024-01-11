@@ -5,15 +5,18 @@ import {
 	View,
 	ScrollView,
 	TouchableOpacity,
-	ActivityIndicator,
 	TextInput,
+	ImageBackground,
 } from "react-native";
 import { router } from "expo-router";
 import { Picker } from "@react-native-picker/picker";
+import { Feather } from "@expo/vector-icons";
 
 import getAllMerchants from "../../utils/getMerchants";
 import { useAuth } from "../../../hooks/useAuth";
 import { QR } from "../../../screens/components/QR";
+import { Loading } from "../../../screens/components/Loading";
+import { Colours } from "../../../constants/Colours";
 
 export default function MerchantListScreen() {
 	const [merchants, setMerchants] = useState([]);
@@ -78,20 +81,30 @@ export default function MerchantListScreen() {
 		}
 	};
 
-	if (loading)
-		return (
-			<View>
-				<ActivityIndicator size="large" color="#0000ff" />
-			</View>
-		);
+	if (loading) return <Loading />;
+
 	return (
 		<ScrollView contentContainerStyle={styles.contentContainer}>
-			<QR userId={user.id} />
-			<Text style={styles.title}>View Merchants with promotions</Text>
+			<ImageBackground
+				source={require("../../../assets/images/qr-bg.png")}
+				imageStyle={{
+					resizeMode: "contain",
+					top: -100,
+				}}
+				style={{
+					flex: 1,
+					justifyContent: "center",
+					width: "100%",
+					alignItems: "center",
+				}}
+			>
+				<QR userId={user.id} />
+			</ImageBackground>
+			<Text style={styles.title}>Merchants</Text>
 			<View style={styles.inputContainer}>
 				<TextInput
 					style={styles.inputField}
-					placeholder="search..."
+					placeholder="Search merchants"
 					placeholderTextColor={"grey"}
 					onChangeText={handleInputChange}
 					value={input}
@@ -106,20 +119,35 @@ export default function MerchantListScreen() {
 				)}
 			</View>
 			<View style={styles.pickerContainer}>
+				<Text style={styles.filter}>Filter</Text>
 				<Picker
 					style={styles.picker}
 					selectedValue={selectedCategory}
 					onValueChange={(itemValue) => handleCategoryChange(itemValue)}
 				>
 					<Picker.Item
-						label="all categories"
+						label="All Categories"
 						value="all items"
-						style={{ fontSize: 15 }}
+						style={{ fontSize: 16, borderRadius: 20 }}
 					/>
-					<Picker.Item label="coffee" value="coffee" style={{ fontSize: 15 }} />
-					<Picker.Item label="bakery" value="bakery" style={{ fontSize: 15 }} />
+					<Picker.Item
+						label="Coffee"
+						value="coffee"
+						style={{ fontSize: 16, borderRadius: 20 }}
+					/>
+					<Picker.Item
+						label="Bakery"
+						value="bakery"
+						style={{ fontSize: 16, borderRadius: 20 }}
+					/>
 				</Picker>
 			</View>
+			<Feather
+				name="arrow-down"
+				size={24}
+				color={Colours.pink}
+				style={{ marginBottom: 15 }}
+			/>
 			{filteredMerchants.map((merchant) => (
 				<TouchableOpacity
 					style={styles.button}
@@ -129,37 +157,30 @@ export default function MerchantListScreen() {
 					<Text style={styles.buttonText}>{merchant.company_name}</Text>
 				</TouchableOpacity>
 			))}
-			<View style={styles.separator} />
 		</ScrollView>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-	},
-	horizontal: {
-		flexDirection: "row",
-		justifyContent: "space-around",
-		padding: 10,
-	},
 	contentContainer: {
+		backgroundColor: Colours.backgroundOffWhite,
 		alignItems: "center",
 		justifyContent: "center",
-		marginTop: 50,
+		paddingTop: 50,
+		paddingBottom: 20,
 	},
 	title: {
-		fontSize: 20,
+		fontFamily: "Quicksand-Bold",
+		fontSize: 24,
 		fontWeight: "bold",
 		marginBottom: 20,
+		marginTop: 10,
 	},
 	button: {
-		backgroundColor: "#DDDDDD",
-		padding: 10,
-		borderRadius: 10,
-		marginBottom: 10,
+		backgroundColor: "white",
+		paddingVertical: 20,
+		borderRadius: 7,
+		marginBottom: 12,
 		width: 300,
 	},
 	buttonText: {
@@ -173,33 +194,16 @@ const styles = StyleSheet.create({
 		width: "80%",
 		alignItems: "center",
 	},
-	sub_heading: {
-		fontWeight: "700",
-		textAlign: "center",
-		marginBottom: 5,
-	},
-	account_userId: {
-		backgroundColor: "white",
-		color: "black",
-		borderRadius: 7,
-		fontSize: 24,
-		width: 200,
-		textAlign: "center",
-		height: 35,
-		marginTop: 5,
-		marginBottom: 30,
-	},
 	inputContainer: {
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "center",
-		marginBottom: 35,
+		marginBottom: 15,
 	},
 	inputField: {
-		height: 40,
+		height: 50,
 		width: 300,
 		backgroundColor: "white",
-		borderWidth: 1,
 		padding: 10,
 		color: "black",
 		borderRadius: 10,
@@ -210,18 +214,24 @@ const styles = StyleSheet.create({
 	},
 	clearButton: {
 		padding: 5,
+		paddingHorizontal: 10,
 		borderRadius: 50,
-		marginLeft: -25,
-		backgroundColor: "#DDDDDD",
+		marginLeft: -35,
+		backgroundColor: "#F5F5F5",
 	},
 	pickerContainer: {
-		marginBottom: 35,
+		marginBottom: 15,
 	},
 	picker: {
 		height: 30,
-		width: 150,
+		width: 300,
 		backgroundColor: "white",
 		borderWidth: 1,
-		borderRadius: 10,
+		borderRadius: 16,
+	},
+	filter: {
+		fontWeight: "700",
+		textAlign: "center",
+		marginBottom: 5,
 	},
 });

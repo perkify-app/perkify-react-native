@@ -8,6 +8,7 @@ import {
 import React from "react";
 
 import { useAnimation } from "../../hooks/useAnimation";
+import { Colours } from "../../constants/Colours";
 
 interface Props extends PressableProps {
 	title?: string;
@@ -32,7 +33,10 @@ export const Button: React.FC<Props> = ({
 					children
 				) : (
 					<Text
-						style={{ color: isDark ? "white" : "black", ...styles.btnText }}
+						style={{
+							color: isDark ? "white" : Colours.backgroundDarkBlue,
+							...styles.btnText,
+						}}
 					>
 						{title}
 					</Text>
@@ -44,11 +48,14 @@ export const Button: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
 	btn: {
-		backgroundColor: "black",
+		backgroundColor: Colours.backgroundDarkBlue,
 		paddingVertical: 20,
 		paddingHorizontal: 35,
 		marginVertical: 10,
 		minWidth: 200,
+		borderWidth: 2,
+		borderColor: Colours.backgroundDarkBlue,
+		borderRadius: 35,
 	},
 	btnText: {
 		textAlign: "center",

@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
+import { Colours } from '../../constants/Colours';
 
 const StampCard = ({ stamps, requiredPoints }) => {
   const calculateLayout = (requiredPoints) => {
@@ -19,7 +21,7 @@ const StampCard = ({ stamps, requiredPoints }) => {
         const index = row * cols + col;
         const isFilled = index < stamps;
         const stampStyle = isFilled ? styles.stampFilled : styles.stampEmpty;
-        const stampContent = isFilled ? <Text style={styles.stampText}>Filled</Text> : null;
+        const stampContent = isFilled ? <AntDesign name="star" size={24} color={Colours.yellow} /> : null;
 
         rowStamps.push(
           <View key={index} style={[styles.stamp, stampStyle]}>
@@ -42,7 +44,6 @@ const StampCard = ({ stamps, requiredPoints }) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    backgroundColor: '#f0f0f0',
     padding: 10,
     borderRadius: 10,
     marginVertical: 10,
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: 'darkgray',
     marginRight: 5,
     alignItems: 'center',
     justifyContent: 'center',
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   stampFilled: {
-    backgroundColor: 'grey',
+    backgroundColor: 'white',
   },
   stampText: {
     color: 'white',

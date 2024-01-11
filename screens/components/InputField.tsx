@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, View, TextInput, StyleSheet } from "react-native";
+import { Colours } from "../../constants/Colours";
 
 interface Props {
 	header: string;
@@ -40,9 +41,10 @@ const styles = StyleSheet.create({
 		height: 40,
 		marginVertical: 12,
 		borderWidth: 1,
-		borderColor: "darkgray",
+		borderColor: Colours.lightpurple,
+		borderRadius: 20,
 		paddingVertical: 5,
-		paddingHorizontal: 10,
+		paddingHorizontal: 14,
 		fontSize: 16,
 	},
 });

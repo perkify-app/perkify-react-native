@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import { InputField } from "./components/InputField";
 import { Button } from "./components/Button";
 import { useAuth } from "../hooks/useAuth";
+import { Colours } from "../constants/Colours";
 
 export default function LoginScreenInfo() {
 	const [email, setEmail] = useState("customer@example.com");
@@ -51,7 +52,12 @@ export default function LoginScreenInfo() {
 				<Button
 					title="Create Account"
 					onPress={() => router.push("/create-account")}
-					style={{ backgroundColor: "gray" }}
+					style={{
+						backgroundColor: "transparent",
+						borderColor: Colours.purple,
+						borderWidth: 2,
+					}}
+					isDark={false}
 				/>
 			</View>
 		</View>
@@ -61,23 +67,20 @@ export default function LoginScreenInfo() {
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "white",
+		justifyContent: "center",
 		alignItems: "center",
 		width: "85%",
 		maxWidth: 600,
-		padding: 25,
+		paddingHorizontal: 25,
+		paddingVertical: 35,
+		borderRadius: 15,
 	},
 	title: {
 		fontSize: 24,
 		fontWeight: "bold",
 		marginBottom: 24,
 	},
-	loginText: {
-		padding: 20,
-		fontSize: 17,
-		lineHeight: 30,
-		textAlign: "center",
-	},
 	btnContainer: {
-		marginTop: 10,
+		marginTop: 15,
 	},
 });

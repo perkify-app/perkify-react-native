@@ -1,9 +1,8 @@
-import { Pressable, Platform } from "react-native";
 import { useEffect } from "react";
+import { Pressable } from "react-native";
 import { router, SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { FAIcon } from "../screens/components/FAIcon";
+import { Feather } from "@expo/vector-icons";
 
 export {
 	// Catch any errors thrown by the Layout component.
@@ -20,8 +19,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
 	const [loaded, error] = useFonts({
-		Inter: require("../assets/fonts/Inter-Regular.ttf"),
-		...FontAwesome.font,
+		"Quicksand-Regular": require("../assets/fonts/Quicksand-Regular.ttf"),
+		"Quicksand-Bold": require("../assets/fonts/Quicksand-Bold.ttf"),
 	});
 
 	// Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -51,12 +50,13 @@ function RootLayoutNav() {
 				options={{
 					presentation: "modal",
 					title: "My Account",
+					animation: "slide_from_right",
 					headerLeft: () => (
 						<Pressable onPress={() => router.push("/account/")}>
-							<FAIcon
+							<Feather
 								name="arrow-left"
+								size={24}
 								color="darkgray"
-								size={20}
 								style={{
 									paddingLeft: 0,
 									paddingRight: 10,
@@ -87,10 +87,10 @@ function RootLayoutNav() {
 					navigationBarHidden: true,
 					headerLeft: () => (
 						<Pressable onPress={() => router.push("/")}>
-							<FAIcon
+							<Feather
 								name="arrow-left"
+								size={24}
 								color="darkgray"
-								size={20}
 								style={{
 									paddingLeft: 0,
 									paddingRight: 10,

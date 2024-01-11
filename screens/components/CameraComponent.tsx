@@ -1,12 +1,14 @@
 import { Camera } from "expo-camera";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useState, useEffect } from "react";
-import { Button, StyleSheet, Text, View, Modal, Alert } from "react-native";
+import { StyleSheet, Text, View, Modal, Alert } from "react-native";
 
 import patchLoyaltyCardByID from "../../app/utils/patchLoyaltyCardByID";
 import getLoyaltyCardByUserId from "../../app/utils/getLoyaltyCardByUserId";
 import StampCard from "./StampCard";
 import redeemPointsOnServer from "../../app/utils/resetPointsOnServer";
+
+import { Button } from "./Button";
 
 export default function CameraComponent() {
   const [hasPermission, setHasPermission] = useState(null);

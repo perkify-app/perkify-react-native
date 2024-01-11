@@ -1,35 +1,42 @@
-import { Tabs } from "expo-router";
-import { FAIcon } from "../../screens/components/FAIcon";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+import { Tabs, useFocusEffect } from "expo-router";
+import { Feather, Entypo, MaterialIcons } from "@expo/vector-icons";
+
 import { useAuth } from "../../hooks/useAuth";
-import { Text } from "react-native";
+import { Loading } from "../../screens/components/Loading";
+import { Colours } from "../../constants/Colours";
 
 export default function TabLayout() {
 	const [loading, setLoading] = useState(true);
 	const { user, setUser, getUser } = useAuth();
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const userData = await getUser();
-				setUser(userData);
-				setLoading(false);
-			} catch (error) {
-				console.error("Failed to fetch data:", error);
-			}
-		};
+	useFocusEffect(
+		useCallback(() => {
+			const fetchData = async () => {
+				try {
+					const userData = await getUser();
+					setUser(userData);
+					setLoading(false);
+				} catch (error) {
+					console.error("Failed to fetch data:", error);
+				}
+			};
 
-		fetchData();
-	}, []);
+			fetchData();
+		}, [])
+	);
 
-	if (loading) {
-		return <Text>Loading...</Text>;
-	}
+	if (loading) return <Loading />;
 
 	return (
 		<Tabs
 			screenOptions={{
-				tabBarActiveTintColor: "red",
+				tabBarInactiveTintColor: Colours.purple,
+				tabBarActiveTintColor: Colours.pink,
+				tabBarStyle: {
+					borderTopColor: "lightblue",
+					borderTopWidth: 1,
+				},
 				headerShown: false,
 			}}
 		>
@@ -37,29 +44,37 @@ export default function TabLayout() {
 				name="merchants"
 				options={{
 					title: "Merchants",
-					tabBarIcon: ({ color }) => <FAIcon name="home" color={color} />,
+					tabBarIcon: ({ color }) => (
+						<Entypo name="shop" size={24} color={color} />
+					),
 				}}
 			/>
 			<Tabs.Screen
 				name="cards"
 				options={{
-					title: "Loyalty Cards",
-					tabBarIcon: ({ color }) => <FAIcon name="dollar" color={color} />,
+					title: "Cards",
+					tabBarIcon: ({ color }) => (
+						<MaterialIcons name="loyalty" size={24} color={color} />
+					),
 				}}
 			/>
 			<Tabs.Screen
 				name="camera"
 				options={{
-					title: "Camera",
-          href: user.id === "U1" ? "/camera" : null,
-					tabBarIcon: ({ color }) => <FAIcon name="camera" color={color} />,
+					title: "Scan",
+					href: user?.id === "U1" ? "/camera" : null,
+					tabBarIcon: ({ color }) => (
+						<MaterialIcons name="qr-code-scanner" size={24} color={color} />
+					),
 				}}
 			/>
 			<Tabs.Screen
 				name="account"
 				options={{
 					title: "Account",
-					tabBarIcon: ({ color }) => <FAIcon name="user" color={color} />,
+					tabBarIcon: ({ color }) => (
+						<Feather name="user" size={24} color={color} />
+					),
 				}}
 			/>
 		</Tabs>

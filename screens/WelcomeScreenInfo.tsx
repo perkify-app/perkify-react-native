@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { CustomerOnboarding } from "../constants/OnboardingData";
 import { Button } from "./components/Button";
 import { ScrollView } from "react-native-gesture-handler";
+import { Colours } from "../constants/Colours";
 
 const Item = ({ item, index }) => (
 	<View style={styles.item}>
@@ -16,7 +17,7 @@ const Item = ({ item, index }) => (
 
 export default function WelcomeScreenInfo() {
 	return (
-		<ScrollView>
+		<ScrollView style={styles.page}>
 			<View style={styles.container}>
 				<View style={styles.separator} />
 				<Text style={{ ...styles.title, textAlign: "center" }}>
@@ -41,6 +42,9 @@ export default function WelcomeScreenInfo() {
 }
 
 const styles = StyleSheet.create({
+	page: {
+		backgroundColor: Colours.backgroundOffWhite,
+	},
 	container: {
 		alignItems: "center",
 		justifyContent: "center",
@@ -48,7 +52,7 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	item: {
-		backgroundColor: "#E0E0E0",
+		backgroundColor: "white",
 		flex: 1,
 		width: "95%",
 		padding: 25,

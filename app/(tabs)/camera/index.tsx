@@ -1,5 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import CameraComponent from "../../../screens/components/CameraComponent";
+import { Colours } from "../../../constants/Colours";
 
 export default function CameraScreen() {
 	return (
@@ -11,6 +12,7 @@ export default function CameraScreen() {
 
 const styles = StyleSheet.create({
 	container: {
+		backgroundColor: Colours.backgroundOffWhite,
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",

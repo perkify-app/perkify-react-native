@@ -1,11 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 
 import LoginScreenInfo from "../screens/LoginScreenInfo";
+import { Colours } from "../constants/Colours";
 
 export default function LoginScreen() {
 	return (
 		<View style={styles.container}>
-			<Text style={styles.logo}>Perkify</Text>
+			<Image
+				source={require("../assets/images/perkify-logo-hv.png")}
+				resizeMode="contain"
+				style={styles.logo}
+			/>
 			<LoginScreenInfo />
 		</View>
 	);
@@ -14,13 +19,13 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: Colours.backgroundOffWhite,
 		alignItems: "center",
 		justifyContent: "center",
-		paddingTop: 20,
 	},
 	logo: {
-		fontSize: 42,
-		fontWeight: "700",
-		marginBottom: 50,
+		width: 250,
+		justifyContent: "center",
+		alignItems: "center",
 	},
 });
