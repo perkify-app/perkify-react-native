@@ -52,17 +52,13 @@ Setup
 5. Run npm run start and a QR code should appear in your Terminal
 6. scan the QR code with your phone and you should be able to run the app on your device
 
-### Screenshot
+### Video
 
-![](./screenshot.jpg)
+This is a brief video overview of some of the screens a user sees on their first sign-up and login.
+This video shows the following pages: login/sign up, create account, initial splash, list of merchants, an individual merchant, activating and viewing a loyalty card, signing out
 
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
+https://github.com/perkify-app/perkify-react-native/assets/139591567/b7345139-452f-4f47-abf0-8d7eb76090d6
 
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it.
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
 
 ## Process
 
