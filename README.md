@@ -57,7 +57,7 @@ Setup
 This is a brief video overview of some of the screens a user sees on their first sign-up and login.
 This video shows the following pages: login/sign up, create account, initial splash, list of merchants, an individual merchant, activating and viewing a loyalty card, signing out
 
-https://github.com/perkify-app/perkify-react-native/assets/139591567/b7345139-452f-4f47-abf0-8d7eb76090d6
+https://github.com/perkify-app/perkify-react-native/assets/139591567/c159e16b-1dc5-4544-b46a-e8e571768c8a
 
 
 ## Process
